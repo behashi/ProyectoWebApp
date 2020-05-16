@@ -64,7 +64,8 @@ public class loginServlet extends HttpServlet {
     	  profesor.put("password", pass);
 		} catch (Exception e) { System.out.print(e.getStackTrace()); }
     	
-		URL url = new URL ("https://reqres.in/api/users");
+		//En la URL donde pone jomangas se debe sustituir por el user de cada uno de la upv.
+		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/login");
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/json; utf-8");
