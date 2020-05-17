@@ -74,8 +74,8 @@ public class loginServlet extends HttpServlet {
 		System.out.println("El json que se le va a mandar a la api es: " + profesor);
 		
 		
-		//En la URL donde pone jomangas se debe sustituir por el user de cada uno de la upv.
-		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/login");
+		//En la URL donde pone swe se debe sustituir por el user de cada uno de la upv.
+		URL url = new URL ("http://dew-swe-1920.dsic.cloud:9090/CentroEducativo/login");
 		
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("POST");
