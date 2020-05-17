@@ -13,8 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import org.json.JSONObject;
 
@@ -64,6 +69,11 @@ public class loginServlet extends HttpServlet {
     	  profesor.put("password", pass);
 		} catch (Exception e) { System.out.print(e.getStackTrace()); }
     	
+		
+		//debug
+		System.out.println("El json que se le va a mandar a la api es: " + profesor);
+		
+		
 		//En la URL donde pone jomangas se debe sustituir por el user de cada uno de la upv.
 		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/login");
 		
@@ -79,9 +89,9 @@ public class loginServlet extends HttpServlet {
 		} catch (Exception e) { System.out.print(e.getStackTrace()); } 
 		
 		int responseCode = con.getResponseCode();
-		System.out.println("POST Response Code :: " + responseCode);
+		System.out.println("Respuesta del POST:  " + responseCode);
 
-		if (responseCode == HttpURLConnection.HTTP_OK) { //T
+		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe la combinación en la api.
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					con.getInputStream()));
 			String inputLine;
@@ -95,21 +105,34 @@ public class loginServlet extends HttpServlet {
 			// printeo el resultado para debuggear (?)
 			System.out.println(res.toString());
 			
-			//en "res" deberia tener el token(cookie) que autoriza el login
+			//capturo la cookie de la conexión para confirmar que estamos loggeados
+			CookieManager cookieManager = new CookieManager();
+			CookieHandler.setDefault(cookieManager);
+			cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL); //desconozco si es del todo necesario
 			
-			String cookie = res.toString();
+			//recorro la lista de cookies de la conexión
+			List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
 			
+			//debug para comprobar el length de cookies
+			System.out.println("El length de cookies es: " + cookies.size());
+			
+			//llegados a este punto supongo que el login ha funcionado y por tanto muestro la lista de asignaturas del profesor(otro html)
+			ServletContext sc = this.getServletContext();
+	        RequestDispatcher rd = sc.getRequestDispatcher("/gato.html"); //TODO cambiar por el html de la lista de asignaturas 
+	        response.setContentType("text/html");
+	        rd.include(request, response);
 			
 			
 		} else {
-			//System.out.println("POST fallido");
+			System.out.println("POST fallido o credenciales incorrectas");
+			
+			//debug
+			System.out.println("El responsecode de la conexión es: " + responseCode);
+			
 			PrintWriter out = response .getWriter();
 			//TODO imprimir una pagina html con un párrafo homólogo
 			out.println("Autenticación incorrecta");
 		}
-	
-    	
-    
 	
 	}
 
