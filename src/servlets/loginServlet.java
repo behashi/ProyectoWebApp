@@ -40,7 +40,7 @@ public class loginServlet extends HttpServlet {
         super();
     }
 	
-	//TODO Crear objeto json con dni y contraseña(?)
+	//YA FUNCIONA EL LOGIN
 	//TODO Almacenar la cookie y enviarla a la API 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
