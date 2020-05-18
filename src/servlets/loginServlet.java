@@ -75,7 +75,7 @@ public class loginServlet extends HttpServlet {
 		
 		
 		//En la URL donde pone swe se debe sustituir por el user de cada uno de la upv.
-		URL url = new URL ("http://dew-swe-1920.dsic.cloud:9090/CentroEducativo/login");
+		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/login");
 		
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("POST");
@@ -92,19 +92,8 @@ public class loginServlet extends HttpServlet {
 		System.out.println("Respuesta del POST:  " + responseCode);
 
 		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe la combinación en la api.
-			BufferedReader in = new BufferedReader(new InputStreamReader(
-					con.getInputStream()));
-			String inputLine;
-			StringBuffer res = new StringBuffer();
-
-			while ((inputLine = in.readLine()) != null) {
-				res.append(inputLine);
-			}
-			in.close();
-
-			// printeo el resultado para debuggear (?)
-			System.out.println(res.toString());
-			
+			/*
+			 
 			//capturo la cookie de la conexión para confirmar que estamos loggeados
 			CookieManager cookieManager = new CookieManager();
 			CookieHandler.setDefault(cookieManager);
@@ -114,7 +103,9 @@ public class loginServlet extends HttpServlet {
 			List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
 			
 			//debug para comprobar el length de cookies
-			System.out.println("El length de cookies es: " + cookies.size());
+			System.out.println("El length de cookies es: " + cookies.size()); 
+			
+			*/
 			
 			//llegados a este punto supongo que el login ha funcionado y por tanto muestro la lista de asignaturas del profesor(otro html)
 			ServletContext sc = this.getServletContext();
