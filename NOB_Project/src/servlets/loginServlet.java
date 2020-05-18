@@ -23,12 +23,12 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-
+//Prueba a hacer commit a mi rama
 
 /**
  * Servlet implementation class loginServlet
- * Este servlet se utiliza en la implementación del primer hito del proyecto;
- * en él se debe permitir logearse y ofrecer ciertas funcionalidades a un profesor.
+ * Este servlet se utiliza en la implementaciï¿½n del primer hito del proyecto;
+ * en ï¿½l se debe permitir logearse y ofrecer ciertas funcionalidades a un profesor.
  */
 public class loginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -40,7 +40,7 @@ public class loginServlet extends HttpServlet {
         super();
     }
 	
-	//TODO Crear objeto json con dni y contraseña(?)
+	//TODO Crear objeto json con dni y contraseï¿½a(?)
 	//TODO Almacenar la cookie y enviarla a la API 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +54,7 @@ public class loginServlet extends HttpServlet {
 		 * sea correcta.
 		 */
     	
-    	//Paso 1 - Pillar usuario y contraseña del profesor 
+    	//Paso 1 - Pillar usuario y contraseï¿½a del profesor 
     	String usu = request.getParameter("user");
     	String pass = request.getParameter("pass");
     	
@@ -91,7 +91,7 @@ public class loginServlet extends HttpServlet {
 		int responseCode = con.getResponseCode();
 		System.out.println("Respuesta del POST:  " + responseCode);
 
-		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe la combinación en la api.
+		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe la combinaciï¿½n en la api.
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					con.getInputStream()));
 			String inputLine;
@@ -105,12 +105,12 @@ public class loginServlet extends HttpServlet {
 			// printeo el resultado para debuggear (?)
 			System.out.println(res.toString());
 			
-			//capturo la cookie de la conexión para confirmar que estamos loggeados
+			//capturo la cookie de la conexiï¿½n para confirmar que estamos loggeados
 			CookieManager cookieManager = new CookieManager();
 			CookieHandler.setDefault(cookieManager);
 			cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL); //desconozco si es del todo necesario
 			
-			//recorro la lista de cookies de la conexión
+			//recorro la lista de cookies de la conexiï¿½n
 			List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
 			
 			//debug para comprobar el length de cookies
@@ -127,11 +127,11 @@ public class loginServlet extends HttpServlet {
 			System.out.println("POST fallido o credenciales incorrectas");
 			
 			//debug
-			System.out.println("El responsecode de la conexión es: " + responseCode);
+			System.out.println("El responsecode de la conexiï¿½n es: " + responseCode);
 			
 			PrintWriter out = response .getWriter();
-			//TODO imprimir una pagina html con un párrafo homólogo
-			out.println("Autenticación incorrecta");
+			//TODO imprimir una pagina html con un pï¿½rrafo homï¿½logo
+			out.println("Autenticaciï¿½n incorrecta");
 		}
 	
 	}
