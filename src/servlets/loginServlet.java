@@ -92,8 +92,10 @@ public class loginServlet extends HttpServlet {
 		System.out.println("Respuesta del POST:  " + responseCode);
 
 		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe la combinación en la api.
-			/*
-			 
+			
+			/* 
+			 * 
+			 * 
 			//capturo la cookie de la conexión para confirmar que estamos loggeados
 			CookieManager cookieManager = new CookieManager();
 			CookieHandler.setDefault(cookieManager);
@@ -103,9 +105,14 @@ public class loginServlet extends HttpServlet {
 			List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
 			
 			//debug para comprobar el length de cookies
-			System.out.println("El length de cookies es: " + cookies.size()); 
+			//System.out.println("El length de cookies es: " + cookies.size()); 
 			
 			*/
+			
+			
+			//Capturo la cookie de la sesión httpurl 
+			String  cookie= con.getHeaderField("Set-Cookie");
+			
 			
 			//llegados a este punto supongo que el login ha funcionado y por tanto muestro la lista de asignaturas del profesor(otro html)
 			ServletContext sc = this.getServletContext();
