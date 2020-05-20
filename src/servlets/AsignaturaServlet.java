@@ -105,22 +105,7 @@ public class AsignaturaServlet extends HttpServlet {
 	}
 
 	
-	/**
-	 *     Método  que se encarga de pillar la request que le llegue al servlet desde el loginServlet
-	 *     pillar la cookie 
-	 * @throws ServletException 
-	 *  */
-	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
-	//trabaja tu con ella alex, debajo esta como renderizo el html 	
-     Cookie[] c = request.getCookies();
-	
-     ServletContext sc = this.getServletContext();
-     RequestDispatcher rd = sc.getRequestDispatcher("/Asignaturas.html");
-     response.setContentType("text/html");
-     rd.include(request, response);
-		
-	}	
+
 	
 	
 }
