@@ -93,36 +93,19 @@ public class loginServlet extends HttpServlet {
 		int responseCode = con.getResponseCode();
 		System.out.println("Respuesta del POST:  " + responseCode);
 
-		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe la combinación en la api.
-			
-			/* 
-			 * 
-			 * 
-			//capturo la cookie de la conexión para confirmar que estamos loggeados
-			CookieManager cookieManager = new CookieManager();
-			CookieHandler.setDefault(cookieManager);
-			cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL); //desconozco si es del todo necesario
-			
-			//recorro la lista de cookies de la conexión
-			List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
-			
-			//debug para comprobar el length de cookies
-			//System.out.println("El length de cookies es: " + cookies.size()); 
-			
-			*/
-			
-			
+		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe el dni en la api*
+
 			//Capturo la cookie de la sesión httpurl para comprobar si ha fallado la contraseña 
 			String  cookieVal = con.getHeaderField("Set-Cookie");
 			
 		
 			//si no hay header de set-cookie la contraseña esta mal
-			if(cookieVal == null || cookieVal == "") {
+			if(cookieVal == null) {
 				PrintWriter outAux = response.getWriter();
 				//TODO imprimir una pagina html con un párrafo homólogo
 				outAux.println("Autenticación incorrecta");
 				
-			}
+			} else {
 			
 		    //sesion sobre la que ir pasando informacion a traves de servlets
 			HttpSession session=request.getSession(true);  
@@ -141,7 +124,7 @@ public class loginServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("listaAsigServlet");
 		    rd.forward(request, response);
 			
-			
+			}
 		} else {
 			System.out.println("POST fallido o credenciales incorrectas");
 			
