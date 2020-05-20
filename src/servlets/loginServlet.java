@@ -120,7 +120,7 @@ public class loginServlet extends HttpServlet {
 			//debug
 			System.out.println("El responsecode de la conexión es: " + responseCode);
 			
-			PrintWriter out = response .getWriter();
+			PrintWriter out = response.getWriter();
 			//TODO imprimir una pagina html con un párrafo homólogo
 			out.println("Autenticación incorrecta");
 		}
