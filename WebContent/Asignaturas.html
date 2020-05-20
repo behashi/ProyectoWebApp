@@ -3,12 +3,13 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script>
-	
 	function onInicio(){
-		$get("/NOB_Project/AsignaturasServlet",function(obj){
+		$.get("/NOB_Project/AsignaturaServlet",function(data){
 			//cuando reciba el json lo proceso e imprimo una lista html
-			out.print(obj);
+			console.log(JSON.stringify(data));
+			console.log("He impreso algo y sale por aqui");
 			//de momento imprimo esto para saber si funciona
 		});
 	}

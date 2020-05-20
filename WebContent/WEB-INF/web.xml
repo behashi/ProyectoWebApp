@@ -49,4 +49,14 @@
     <servlet-name>listaAsignaturasServlet</servlet-name>
     <url-pattern>/listaAsignaturasServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>listaAsigServlet</display-name>
+    <servlet-name>listaAsigServlet</servlet-name>
+    <servlet-class>servlets.listaAsigServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>listaAsigServlet</servlet-name>
+    <url-pattern>/listaAsigServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

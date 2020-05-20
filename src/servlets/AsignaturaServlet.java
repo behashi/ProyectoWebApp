@@ -41,101 +41,33 @@ public class AsignaturaServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		
-		//Cojo el dni necesario para la petición restç
-		String dni = request.getParameter("user");
+		//Cojo el dni necesario para la petición restç		
+		StringBuilder res = null;
+		String laputa = "JODEEEEEER";
+		PrintWriter writer = response.getWriter();
 		
-		JSONArray listaAsig = new JSONArray();
+		HttpSession sesion = request.getSession(false);
+		String dni = sesion.getAttribute("dni").toString();
+		String cookie = sesion.getAttribute("cookie").toString();
+		
+		
+		//JSONArray listaAsig = new JSONArray();
 		
 		//Creo la llamada HTTP para el REST
-		URL url = new URL ("http://dew-algrlo-1920.dsic.cloud:9090/CentroEducativo/profesores/"+dni+"/asignturas");
+		URL url = new URL ("http://dew-algrlo-1920.dsic.cloud:9090/CentroEducativo/profesores/"+dni+"/asignaturas");
 		//URL url = new URL ("http://dew-swe-1920.dsic.cloud:9090/CentroEducativo/login");
 
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("GET");
 		con.setRequestProperty("Content-Type", "application/json; utf-8");
+		con.setRequestProperty("Set-Cookie",cookie);
 		con.setDoOutput(false);
+
 		int responseCode = con.getResponseCode();
-		InputStream inputStream;
-		try { 
-			//Aqui recogería lo que ha devuelto el GET. Habría que crear un json para ello
-			 if (200 <= responseCode && responseCode <= 299) {
-			        inputStream = con.getInputStream();
-			    } else {
-			        inputStream = con.getErrorStream();
-			    }
-
-			    BufferedReader in = new BufferedReader(
-			        new InputStreamReader(
-			            inputStream));
-			    
-			    StringBuilder res = new StringBuilder();
-			    String currentLine;
-
-			    while ((currentLine = in.readLine()) != null) {
-			    	res.append(currentLine);
-			    	
-			    }
-			    //listaAsig = (String) res;
-			    //Aqui habría que pasar el string a un json para devolverlo
-			    in.close();
-			    
-			    
-			
-		} catch (Exception e) { System.out.print(e.getStackTrace()); }
+		response.getWriter().write("El cod res es: "+responseCode);
 		
-		
-		
-		System.out.println("Respuesta del POST:  " + responseCode);
-		
-		
-		ServletContext sc = this.getServletContext();
-        RequestDispatcher rd = sc.getRequestDispatcher("/gato.html"); //TODO cambiar por el html de la lista de asignaturas 
-        response.setContentType("text/html");
-        rd.include(request, response);
-			
-			
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
-	
-	/**
-	 *     Método  que se encarga de pillar la request que le llegue al servlet desde el loginServlet
-	 *     pillar la cookie 
-	 * @throws ServletException 
-	 *  */
-	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
-		//trabaja tu con ella alex, debajo esta como renderizo el html 	
-	     Cookie[] c = request.getCookies();
-	     PrintWriter out = response.getWriter();
-	     StringBuilder res = null;
-	     response.addCookie(c[0]);
-	     response.setContentType("text/html");
-			
-		//Cojo el dni necesario para la petición restç
-		String dni = request.getParameter("user");
-		
-		JSONArray listaAsig = new JSONArray();
-		
-		//Creo la llamada HTTP para el REST
-		URL url = new URL ("http://dew-algrlo-1920.dsic.cloud:9090/CentroEducativo/profesores/"+dni+"/asignturas");
-		//URL url = new URL ("http://dew-swe-1920.dsic.cloud:9090/CentroEducativo/login");
-
-		HttpURLConnection con = (HttpURLConnection)url.openConnection();
-		con.setRequestMethod("GET");
-		con.setRequestProperty("Content-Type", "application/json; utf-8");
-		con.setDoOutput(false);
-		int responseCode = con.getResponseCode();
-		InputStream inputStream;
-		try { 
+		InputStream inputStream ;
+		/*try { 
 			//Aqui recogería lo que ha devuelto el GET. Habría que crear un json para ello
 			 if (200 <= responseCode && responseCode <= 299) {
 			        inputStream = con.getInputStream();
@@ -151,23 +83,53 @@ public class AsignaturaServlet extends HttpServlet {
 			    String currentLine;
 
 			    while ((currentLine = in.readLine()) != null) {
-			    	res.append(currentLine);
+			    	laputa += res.append(currentLine).toString();
 			    	
 			    }
 			    //listaAsig = (String) res;
 			    //Aqui habría que pasar el string a un json para devolverlo
-			    in.close();
+			    in.close();	
 			
-		} catch (Exception e) { System.out.print(e.getStackTrace()); }			
+		} catch (Exception e) { System.out.print(e.getStackTrace()); }*/
+		
+		try {
+			BufferedReader in = new BufferedReader(
+					  new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			StringBuffer content = new StringBuffer();
+			int i = 0;
+			while ((inputLine = in.readLine()) != null) {
+			    content.append(inputLine);
+			    response.getWriter().write("Esto es:" +i);
+			    laputa += content;
+			}
+			in.close();
+			con.disconnect();
+		}catch(Exception e) {
+			System.out.print(e.getStackTrace());
+		}
 		
 		System.out.println("Respuesta del POST:  " + responseCode);
-		//Imprimo la respuesta que sera un json con la lisat de asignaturas
-		out.print(res);
+		//writer.print(res);
+		response.getWriter().write(laputa);
+		response.getWriter().write("PON ALGO EN LA PUTA RESPUESTA JODER");
+		response.getWriter().write(res.toString());
 		
-		ServletContext sc = this.getServletContext();
-        RequestDispatcher rd = sc.getRequestDispatcher("/Asignaturas.html"); //TODO cambiar por el html de la lista de asignaturas 
+		/*ServletContext sc = this.getServletContext();
+        RequestDispatcher rd = sc.getRequestDispatcher("/gato.html"); //TODO cambiar por el html de la lista de asignaturas 
         response.setContentType("text/html");
-        rd.include(request, response);
+        rd.include(request, response);*/
+			
+			
 		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}	
+	
 }

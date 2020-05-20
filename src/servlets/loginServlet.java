@@ -13,6 +13,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -92,40 +93,39 @@ public class loginServlet extends HttpServlet {
 		int responseCode = con.getResponseCode();
 		System.out.println("Respuesta del POST:  " + responseCode);
 
-		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe la combinación en la api.
+		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe el dni en la api*
+
+			//Capturo la cookie de la sesión httpurl para comprobar si ha fallado la contraseña 
+			String  cookieVal = con.getHeaderField("Set-Cookie");
 			
-			/* 
-			 * 
-			 * 
-			//capturo la cookie de la conexión para confirmar que estamos loggeados
-			CookieManager cookieManager = new CookieManager();
-			CookieHandler.setDefault(cookieManager);
-			cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL); //desconozco si es del todo necesario
+		
+			//si no hay header de set-cookie la contraseña esta mal
+			if(cookieVal == null) {
+				PrintWriter outAux = response.getWriter();
+				//TODO imprimir una pagina html con un párrafo homólogo
+				outAux.println("Autenticación incorrecta");
+				
+			} else {
 			
-			//recorro la lista de cookies de la conexión
-			List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
+		    //sesion sobre la que ir pasando informacion a traves de servlets
+			HttpSession session=request.getSession(true);  
+			session.setAttribute("dni", usu);
+			session.setAttribute("cookie", cookieVal);
 			
-			//debug para comprobar el length de cookies
-			//System.out.println("El length de cookies es: " + cookies.size()); 
-			
-			*/
-			
-			
-			//Capturo la cookie de la sesión httpurl y la creo como objeto 
-			//String  cookieVal = con.getHeaderField("Set-Cookie");
-			//nombre de la cookie, es decir cookie.getName() devuelve el dni del usuario
-			//Cookie cookie = new Cookie(usu, cookieVal);
+			System.out.print(cookieVal);
 			
 			//llegados a este punto supongo que el login ha funcionado y por tanto llamo al servlet de la lista de asignaturas
-
-			/*el setContentType no se si es ese, diria que si ya que al final el otro servlet
-			va a devolver un requestDispatch a otro html  */
-			response.setContentType("text/html");
-			/*response.addCookie(cookie);
-				   
-			//Si no funciona solo con el nombre prueba con la ruta /servlets/listaAsignaturaServlet
-			response.sendRedirect("listaAsignaturaServlet");*/
 			
+			/*Si esto no funciona copypasteo la otra opcion menos limpia, cambiad por vuestros usuarios porfa
+			 * URL url = new URL("//dew-jomangas-1920.dsic.cloud:8080/NOB_Project/listaAsigServlet");
+			   HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+               conn.setRequestMethod("GET");
+               conn.connect(); */
+			
+			RequestDispatcher rd = request.getRequestDispatcher("listaAsigServlet");
+		    rd.forward(request, response);
+			
+			}
 		} else {
 			System.out.println("POST fallido o credenciales incorrectas");
 			
@@ -146,5 +146,9 @@ public class loginServlet extends HttpServlet {
 	
 		doGet(request, response);
 	}
+	
+	
+	
+	
 
 }
