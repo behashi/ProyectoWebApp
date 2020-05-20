@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,7 +76,7 @@ public class loginServlet extends HttpServlet {
 		
 		
 		//En la URL donde pone swe se debe sustituir por el user de cada uno de la upv.
-		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/login");
+		URL url = new URL ("http://dew-algrlo-1920.dsic.cloud:9090/CentroEducativo/login");
 		
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("POST");
@@ -92,8 +93,10 @@ public class loginServlet extends HttpServlet {
 		System.out.println("Respuesta del POST:  " + responseCode);
 
 		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe la combinación en la api.
-			/*
-			 
+			
+			/* 
+			 * 
+			 * 
 			//capturo la cookie de la conexión para confirmar que estamos loggeados
 			CookieManager cookieManager = new CookieManager();
 			CookieHandler.setDefault(cookieManager);
@@ -103,16 +106,25 @@ public class loginServlet extends HttpServlet {
 			List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
 			
 			//debug para comprobar el length de cookies
-			System.out.println("El length de cookies es: " + cookies.size()); 
+			//System.out.println("El length de cookies es: " + cookies.size()); 
 			
 			*/
 			
-			//llegados a este punto supongo que el login ha funcionado y por tanto muestro la lista de asignaturas del profesor(otro html)
-			ServletContext sc = this.getServletContext();
-	        RequestDispatcher rd = sc.getRequestDispatcher("/gato.html"); //TODO cambiar por el html de la lista de asignaturas 
-	        response.setContentType("text/html");
-	        rd.include(request, response);
 			
+			//Capturo la cookie de la sesión httpurl y la creo como objeto 
+			//String  cookieVal = con.getHeaderField("Set-Cookie");
+			//nombre de la cookie, es decir cookie.getName() devuelve el dni del usuario
+			//Cookie cookie = new Cookie(usu, cookieVal);
+			
+			//llegados a este punto supongo que el login ha funcionado y por tanto llamo al servlet de la lista de asignaturas
+
+			/*el setContentType no se si es ese, diria que si ya que al final el otro servlet
+			va a devolver un requestDispatch a otro html  */
+			response.setContentType("text/html");
+			/*response.addCookie(cookie);
+				   
+			//Si no funciona solo con el nombre prueba con la ruta /servlets/listaAsignaturaServlet
+			response.sendRedirect("listaAsignaturaServlet");*/
 			
 		} else {
 			System.out.println("POST fallido o credenciales incorrectas");
