@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -110,16 +111,20 @@ public class loginServlet extends HttpServlet {
 			*/
 			
 			
-			//Capturo la cookie de la sesión httpurl 
-			String  cookie= con.getHeaderField("Set-Cookie");
+			//Capturo la cookie de la sesión httpurl y la creo como objeto 
+			String  cookieVal = con.getHeaderField("Set-Cookie");
+			//nombre de la cookie, es decir cookie.getName() devuelve el dni del usuario
+			Cookie cookie = new Cookie(usu, cookieVal);
 			
-			
-			//llegados a este punto supongo que el login ha funcionado y por tanto muestro la lista de asignaturas del profesor(otro html)
-			ServletContext sc = this.getServletContext();
-	        RequestDispatcher rd = sc.getRequestDispatcher("/gato.html"); //TODO cambiar por el html de la lista de asignaturas 
-	        response.setContentType("text/html");
-	        rd.include(request, response);
-			
+			//llegados a este punto supongo que el login ha funcionado y por tanto llamo al servlet de la lista de asignaturas
+
+			/*el setContentType no se si es ese, diria que si ya que al final el otro servlet
+			va a devolver un requestDispatch a otro html  */
+			response.setContentType("text/html");
+			response.addCookie(cookie);
+				   
+			//Si no funciona solo con el nombre prueba con la ruta /servlets/listaAsignaturaServlet
+			response.sendRedirect("listaAsignaturaServlet");
 			
 		} else {
 			System.out.println("POST fallido o credenciales incorrectas");
@@ -127,7 +132,7 @@ public class loginServlet extends HttpServlet {
 			//debug
 			System.out.println("El responsecode de la conexión es: " + responseCode);
 			
-			PrintWriter out = response .getWriter();
+			PrintWriter out = response.getWriter();
 			//TODO imprimir una pagina html con un párrafo homólogo
 			out.println("Autenticación incorrecta");
 		}
