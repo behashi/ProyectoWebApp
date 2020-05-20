@@ -39,6 +39,7 @@ public class AsignaturaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
+		Cookie[] cookies = request.getCookies();
 		
 		//Cojo el dni necesario para la petición restç
 		String dni = request.getParameter("user");
@@ -53,6 +54,7 @@ public class AsignaturaServlet extends HttpServlet {
 		con.setRequestProperty("Content-Type", "application/json; utf-8");
 		con.setDoOutput(false);
 		int responseCode = con.getResponseCode();
+		con.setRequestProperty("Cookie",cookies[1].toString());
 		InputStream inputStream;
 		try { 
 			//Aqui recogería lo que ha devuelto el GET. Habría que crear un json para ello
@@ -79,7 +81,7 @@ public class AsignaturaServlet extends HttpServlet {
 			    in.close();
 
 			
-		} catch (Exception e) { System.out.print(e.getStackTrace()); }
+		} catch (Exception e) { System.out.print(e.getStackTrace());}
 		
 		
 		

@@ -6,19 +6,14 @@
 	<script>
 		$(document).ready(function(){
 			$get("/NOB_Project/AsignaturasServlet",function(obj){
-				//cuando reciba el json lo proceso e imprimo una lista html
-				out.print(obj);
+				//cuando reciba el json lo proceso e imprimo una lista html				
+				$(obj[0].).appendTo('#listaAsignaturas');
 				//de momento imprimo esto para saber si funciona
 			});
 		});
 	</script>
 </head>
 <body>
-	<div>
-		<h1>Lista tranquilizadora</h1>
-		<ul>
-			<li>Lista vacía para que nos transmita tranquilidad y nos diga que todo saldrá bien</li>			
-		</ul>
-	</div>
+	<div id="listAsignaturas"></div>
 </body>
 </html>
