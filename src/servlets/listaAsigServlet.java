@@ -27,12 +27,9 @@ public class listaAsigServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ServletContext sc = this.getServletContext();
-	     RequestDispatcher rd = sc.getRequestDispatcher("/Asignaturas.html");
+		
 	     response.setContentType("text/html");
-	     
-	     System.out.print(request.getCookies()[0].toString());
-	     rd.include(request, response);
+	     response.getWriter().write(request.getParameter("boton"));
 	}
 
 	/**

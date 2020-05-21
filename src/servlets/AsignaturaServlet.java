@@ -152,7 +152,7 @@ public class AsignaturaServlet extends HttpServlet {
 			System.out.print(e.getStackTrace());
 		}
 		HttpSession session=request.getSession(true);
-		session.setAttribute("acr", acr);
+		session.setAttribute("acr", request.getAttribute("boton"));
 		session.setAttribute("cookie", cookie);
 		session.setAttribute("key", key);
 		
@@ -161,6 +161,7 @@ public class AsignaturaServlet extends HttpServlet {
         response.setContentType("text/html");
         response.getWriter().write(acr);
         rd.include(request, response);
+
 	}	
 	
 }
