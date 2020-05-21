@@ -9,7 +9,10 @@
 		$.get("/NOB_Project/AsignaturaServlet",function(data){
 			//cuando reciba el json lo proceso e imprimo una lista html
 			console.log(JSON.stringify(data));
-			console.log("He impreso algo y sale por aqui");
+			
+			//$('#imgGato').attr('src', data[0].url);
+			
+			//console.log("He impreso algo y sale por aqui");
 			//de momento imprimo esto para saber si funciona
 		});
 	}

@@ -97,8 +97,28 @@ public class loginServlet extends HttpServlet {
 
 			//Capturo la cookie de la sesión httpurl para comprobar si ha fallado la contraseña 
 			String  cookieVal = con.getHeaderField("Set-Cookie");
+			String p;
+			StringBuffer content;
+			String key ="";
+			try {
+				BufferedReader in = new BufferedReader(
+						  new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				content = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+				    content.append(inputLine);
+				    
+				}
+				key = content.toString();
+				in.close();
+				con.disconnect();
+			}catch(Exception e) {
+				System.out.print(e.getStackTrace());
+			} 
 			
-		
+			
+			
+			
 			//si no hay header de set-cookie la contraseña esta mal
 			if(cookieVal == null) {
 				PrintWriter outAux = response.getWriter();
@@ -111,8 +131,8 @@ public class loginServlet extends HttpServlet {
 			HttpSession session=request.getSession(true);  
 			session.setAttribute("dni", usu);
 			session.setAttribute("cookie", cookieVal);
-			
-			System.out.print(cookieVal);
+			session.setAttribute("key", key);
+
 			
 			//llegados a este punto supongo que el login ha funcionado y por tanto llamo al servlet de la lista de asignaturas
 			
@@ -122,7 +142,8 @@ public class loginServlet extends HttpServlet {
                conn.setRequestMethod("GET");
                conn.connect(); */
 			
-			RequestDispatcher rd = request.getRequestDispatcher("listaAsigServlet");
+			//RequestDispatcher rd = request.getRequestDispatcher("/AsignaturaServlet");
+			RequestDispatcher rd = request.getRequestDispatcher("/Asignaturas.html");
 		    rd.forward(request, response);
 			
 			}
