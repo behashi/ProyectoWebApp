@@ -77,7 +77,7 @@ public class loginServlet extends HttpServlet {
 		
 		
 		//En la URL donde pone swe se debe sustituir por el user de cada uno de la upv.
-		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/login");
+		URL url = new URL ("http://dew-algrlo-1920.dsic.cloud:9090/CentroEducativo/login");
 		
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("POST");
@@ -111,7 +111,8 @@ public class loginServlet extends HttpServlet {
 			HttpSession session=request.getSession(true);  
 			session.setAttribute("dni", usu);
 			session.setAttribute("cookie", cookieVal);
-
+			
+			System.out.print(cookieVal);
 			
 			//llegados a este punto supongo que el login ha funcionado y por tanto llamo al servlet de la lista de asignaturas
 			

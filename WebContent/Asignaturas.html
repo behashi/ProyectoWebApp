@@ -3,14 +3,20 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script>
-		$(document).ready(function(){
-			$get("/NOB_Project/AsignaturasServlet",function(obj){
-				//cuando reciba el json lo proceso e imprimo una lista html
-				out.print(obj);
-				//de momento imprimo esto para saber si funciona
-			});
+	function onInicio(){
+		$.get("/NOB_Project/AsignaturaServlet",function(data){
+			//cuando reciba el json lo proceso e imprimo una lista html
+			console.log(JSON.stringify(data));
+			console.log("He impreso algo y sale por aqui");
+			//de momento imprimo esto para saber si funciona
 		});
+	}
+
+
+	$('document').ready(onInicio())
+
 	</script>
 </head>
 <body>

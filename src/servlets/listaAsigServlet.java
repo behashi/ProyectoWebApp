@@ -30,6 +30,8 @@ public class listaAsigServlet extends HttpServlet {
 		ServletContext sc = this.getServletContext();
 	     RequestDispatcher rd = sc.getRequestDispatcher("/Asignaturas.html");
 	     response.setContentType("text/html");
+	     
+	     System.out.print(request.getCookies()[0].toString());
 	     rd.include(request, response);
 	}
 
