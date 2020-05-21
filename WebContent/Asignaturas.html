@@ -23,9 +23,9 @@
 			    $.each(response, function(i, item) {
 			        $('#Asignaturas').append(			        		
 		        		$('<tr id='+item.acronimo+'>').append(
-					            $('<td>').text(item.acronimo),					            
-					            //$('<td>').append($('<a href="alumnos.html">').text(item.nombre)),
-					            $('<td>').append($('<a href="">').text(item.nombre)),
+					            $('<td>').append(					            		
+					            		$('<button id='+item.acronimo+' onclick="cambiar()" value='+item.acronimo+' name="boton">'+item.acronimo+'</button>')),				            
+					            $('<td>').text(item.nombre),
 					            $('<td>').text(item.curso),
 					            $('<td>').text(item.cuatrimestre),
 					            $('<td>').text(item.creditos)
@@ -35,15 +35,30 @@
 			});
 		});
 		
-		$('a').click(function(){
-			console.log($(this).parent().parent().prop('id'));
+		/*$(':button').click(function(){
+			/*console.log($(this).parent().parent().prop('id'));
 			$.post("/NOB_Project/AlumnoServlet",function(data){
 				$(this).attr('id').html(data);
 				console.log($(this).parent().parent().prop('id'));
 			});
-		});
+			$('#acrOculto').val('hola');		
+		});*/
 		
-		
+		/*function cambiar(){
+            var botonId = this.id;
+            $("#form").submit(function(e){
+                 e.preventDefault();//stop submit event
+                 var self = $(this);//this form
+                 $("#acrOculto").val(botonId);//change input
+                 $("#form").off("submit");//need form submit event off.
+                 self.submit();//submit form
+
+           });
+        }*/
+        
+		function cambiar(){
+        	 $("#form").submit();
+        }
 	}
 	
 	$('document').ready(onInicio())
@@ -53,7 +68,10 @@
 <body>
 	<div>
 		<h1>Lista asignaturas</h1>
-		<table id="Asignaturas"></table>
+		<form id="form" action ="/NOB_Project/AsignaturaServlet" method= "post">
+			<table id="Asignaturas"></table>
+		</form>
+		
 	</div>
 </body>
 </html>
