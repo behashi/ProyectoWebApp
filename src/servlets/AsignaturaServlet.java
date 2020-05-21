@@ -43,7 +43,7 @@ public class AsignaturaServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		
-		//Cojo el dni necesario para la petición restç		
+		//Cojo el dni necesario para la peticiÃ³n restÃ§		
 		StringBuilder res = null;
 		String p = "";
 		PrintWriter writer = response.getWriter();
@@ -77,7 +77,7 @@ public class AsignaturaServlet extends HttpServlet {
 		
 		InputStream inputStream ;
 		/*try { 
-			//Aqui recogería lo que ha devuelto el GET. Habría que crear un json para ello
+			//Aqui recogerÃ­a lo que ha devuelto el GET. HabrÃ­a que crear un json para ello
 			 if (200 <= responseCode && responseCode <= 299) {
 			        inputStream = con.getInputStream();
 			    } else {
@@ -96,7 +96,7 @@ public class AsignaturaServlet extends HttpServlet {
 			    	
 			    }
 			    //listaAsig = (String) res;
-			    //Aqui habría que pasar el string a un json para devolverlo
+			    //Aqui habrÃ­a que pasar el string a un json para devolverlo
 			    in.close();	
 			
 		} catch (Exception e) { System.out.print(e.getStackTrace()); }*/
@@ -152,7 +152,7 @@ public class AsignaturaServlet extends HttpServlet {
 			System.out.print(e.getStackTrace());
 		}
 		HttpSession session=request.getSession(true);
-		session.setAttribute("acr", request.getAttribute("boton"));
+		session.setAttribute("acr", request.getParameter("boton"));
 		session.setAttribute("cookie", cookie);
 		session.setAttribute("key", key);
 		
