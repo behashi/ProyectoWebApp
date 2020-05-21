@@ -26,6 +26,8 @@ import org.json.JSONArray;
 public class AsignaturaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     boolean mostrarLog = true;
+    String cookie = "";
+    String key = "";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,13 +45,13 @@ public class AsignaturaServlet extends HttpServlet {
 		
 		//Cojo el dni necesario para la petición restç		
 		StringBuilder res = null;
-		String p = "JODEEEEEER";
+		String p = "";
 		PrintWriter writer = response.getWriter();
 		
 		HttpSession sesion = request.getSession(false);
 		String dni = sesion.getAttribute("dni").toString();
-		String key = sesion.getAttribute("key").toString();
-		String cookie = sesion.getAttribute("cookie").toString();
+		key = sesion.getAttribute("key").toString();
+		cookie = sesion.getAttribute("cookie").toString();
 		//Cookie c = request.getCookies()[0];
 		//response.getWriter().write("Esta es mi cookieSesion: "+key+"\n");
 		//response.getWriter().write("Esta es mi cookieSesion: "+cookie+"\n");
@@ -135,7 +137,30 @@ public class AsignaturaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
+		String inputLine;
+		String acr = "";
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(request.getInputStream()));
+			StringBuffer content = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) {
+			    content.append(inputLine);
+			}
+			
+			in.close();
+		}catch(Exception e) {
+			System.out.print(e.getStackTrace());
+		}
+		HttpSession session=request.getSession(true);
+		session.setAttribute("acr", acr);
+		session.setAttribute("cookie", cookie);
+		session.setAttribute("key", key);
+		
+		ServletContext sc = this.getServletContext();
+        RequestDispatcher rd = sc.getRequestDispatcher("/gato.html"); //TODO cambiar por el html de la lista de asignaturas 
+        response.setContentType("text/html");
+        response.getWriter().write(acr);
+        rd.include(request, response);
 	}	
 	
 }

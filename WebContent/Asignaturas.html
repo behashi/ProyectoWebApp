@@ -6,28 +6,54 @@
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script>
 	function onInicio(){
-		$.get("/NOB_Project/AsignaturaServlet",function(data){
-			//cuando reciba el json lo proceso e imprimo una lista html
-			console.log(JSON.stringify(data));
+		$.get("/NOB_Project/AsignaturaServlet",function(data){			
 			
-			//$('#imgGato').attr('src', data[0].url);
-			
-			//console.log("He impreso algo y sale por aqui");
-			//de momento imprimo esto para saber si funciona
+			response = $.parseJSON(data);
+
+			$(function() {
+				$('#Asignaturas').append(
+					$('<tr>').append(
+				            $('<td>').text('Acronimo'),					            
+				            $('<td>').text('Nombre'),
+				            $('<td>').text('Curso'),
+				            $('<td>').text('Cuatrimestre'),
+				            $('<td>').text('Creditos')
+				    )		
+				);				
+			    $.each(response, function(i, item) {
+			        $('#Asignaturas').append(			        		
+		        		$('<tr id='+item.acronimo+'>').append(
+					            $('<td>').text(item.acronimo),					            
+					            //$('<td>').append($('<a href="alumnos.html">').text(item.nombre)),
+					            $('<td>').append($('<a href="">').text(item.nombre)),
+					            $('<td>').text(item.curso),
+					            $('<td>').text(item.cuatrimestre),
+					            $('<td>').text(item.creditos)
+					    )
+			        );
+			    });
+			});
 		});
+		
+		$('a').click(function(){
+			console.log($(this).parent().parent().prop('id'));
+			$.post("/NOB_Project/AlumnoServlet",function(data){
+				$(this).attr('id').html(data);
+				console.log($(this).parent().parent().prop('id'));
+			});
+		});
+		
+		
 	}
-
-
+	
 	$('document').ready(onInicio())
 
 	</script>
 </head>
 <body>
 	<div>
-		<h1>Lista tranquilizadora</h1>
-		<ul>
-			<li>Lista vacía para que nos transmita tranquilidad y nos diga que todo saldrá bien</li>			
-		</ul>
+		<h1>Lista asignaturas</h1>
+		<table id="Asignaturas"></table>
 	</div>
 </body>
 </html>
