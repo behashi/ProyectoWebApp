@@ -92,30 +92,49 @@ public class DatoAlumnoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String inputLine;
-		String dni = "";
-		try {
-			BufferedReader in = new BufferedReader(new InputStreamReader(request.getInputStream()));
-			StringBuffer content = new StringBuffer();
-			while ((inputLine = in.readLine()) != null) {
-			    content.append(inputLine);
-			}
-			
-			in.close();
-		}catch(Exception e) {
-			System.out.print(e.getStackTrace());
-		}
-		HttpSession session=request.getSession(true);
-		session.setAttribute("dni", request.getParameter("seleccion"));
-		session.setAttribute("cookie", cookie);
-		session.setAttribute("key", key);
-		
-		ServletContext sc = this.getServletContext();
-        RequestDispatcher rd = sc.getRequestDispatcher("/Alumnos.html"); 
-        response.setContentType("text/html");
-        response.getWriter().write(dni);
-        rd.include(request, response);
+		response.setContentType("text/html");
 
-	}	
-	
+        //Paso 1 - Coger el dni del profesor necesario para la petición rest
+        String petition = "";
+        PrintWriter out = response.getWriter();
+
+        //Paso 2 - Obtener los datos de sesion
+        HttpSession sesion = request.getSession(false);
+        String dni = sesion.getAttribute("dni").toString();
+        key = sesion.getAttribute("key").toString();
+        cookie = sesion.getAttribute("cookie").toString();
+
+        //Paso 3 - Crear la llamada HTTP para el REST
+        URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+dni+"/asignaturas?key="+key.toLowerCase()) ;
+        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Cookie",cookie);
+        connection.setDoOutput(false);
+
+        int responseCode = connection.getResponseCode();
+
+        try {
+
+            //Leer el "GET" que se le hace a la URL y capturar el JSON
+            BufferedReader in = new BufferedReader(
+                            new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                   content.append(inputLine);
+            }
+            petition=content.toString();
+            in.close();
+            connection.disconnect();
+
+
+        }
+        catch(Exception e) {
+            System.out.print(e.getStackTrace());
+        }
+
+        System.out.println("Respuesta del POST:  " + responseCode+"\n");
+        response.getWriter().write(petition);
+    }
 }
