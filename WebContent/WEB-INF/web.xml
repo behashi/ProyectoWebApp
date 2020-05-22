@@ -79,4 +79,14 @@
     <servlet-name>listaAlumServlet</servlet-name>
     <url-pattern>/listaAlumServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DatoAlumnoServlet</display-name>
+    <servlet-name>DatoAlumnoServlet</servlet-name>
+    <servlet-class>servlets.DatoAlumnoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DatoAlumnoServlet</servlet-name>
+    <url-pattern>/DatoAlumnoServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

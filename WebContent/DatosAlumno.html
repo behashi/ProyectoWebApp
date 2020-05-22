@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es-es">
+	<head>
+		<title>Informaci&oacute;n alumno</title>
+		<meta charset="ISO-8859-1" />
+		<link rel="stylesheet" type="text/css" href="DatosAlumnoCSS.css">
+		<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script>
+			function onLoad(){
+				var insert = document.getElementById("insertar");
+				$.get("/NOB_Project/DatosAlumnoServlet",function(data){
+
+					//Paso 1 - Obtener el objeto JSON que me pasan
+					response = $.parseJSON(data);
+
+					//Paso 2 - Escribir Header del nombre y el parrafo de donde esta matruculade
+					$(function() {
+						$(#insertar).append(
+							$('h1').text(item.apellidos + ", " + item.nombre + "(" + item.dni + ")"),
+							$('p').text("[Matriculade en: " + item.asignaturas + "]");
+						);
+					});
+				});
+				.fail(function(jqxhr, textStatus, error ) {
+					var err = jqxhr.response.replace(",", "\n");
+					alert("Algo mal: "+error);
+				})
+			}
+
+			//Paso X - Botones(links) que llevan al siguiente o anterior alumno
+			var next = document.getElementById("next");
+			var previous = document.getElementById("previous");
+
+			$('#next').click(function() {
+				/* Comprobar si el elemento en el que estamos es el ultimo
+				para hacer loop al primer elemento*/
+				if(response.next() == null){response.next() =;}
+			});
+			$('#previous').click(function() {
+				/* Comprobar si el elemento en el que estamos es el primero
+				para hacer loop al ultimo elemento*/
+				if(response.prev() == null)){response.prev() =;}
+			});
+			$('document').ready(onInicio())
+	</script>
+	</head>
+	<body>
+		<div id="insertar">
+			<!-- Pongo un gatete de placeholder hasta saber hacer lo del género" -->
+			<img src="fotos/fotoGatete.jpg" alt="itsAKitten" />
+			<a href="#" class="previous student" id="previous">&#8249;</a>
+			<a href="#" class="next student" id="next">&#8250;</a>
+		</div>
+	</body>
+</html>

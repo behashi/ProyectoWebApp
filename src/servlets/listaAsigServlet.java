@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class listaAsigServlet
@@ -28,8 +29,12 @@ public class listaAsigServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	     response.setContentType("text/html");
-	     response.getWriter().write(request.getParameter("boton"));
+		HttpSession session=request.getSession(true);  
+		session.setAttribute("dni", request.getParameter("seleccion"));
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/DatosAlumno.html");
+	    rd.forward(request, response);
+	
 	}
 
 	/**
