@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script>
+	function onInicio(){
+		$.get("/NOB_Project/AlumnoServlet",function(data){			
+			
+			response = $.parseJSON(data);
+
+			$(function() {
+				$('#Alumnos').append(
+					$('<tr>').append(
+							$('<td>').text('DNI'),				            
+				            $('<td>').text('Nota')
+				          
+				            
+				    )		
+				);				
+			    $.each(response, function(i, item) {
+			        $('#Alumnos').append(			        		
+		        		$('<tr id='+item.alumno+'>').append(
+					            $('<td>').append(					            		
+					            		$('<button id='+item.alumno+' onclick="cambiar()" value='+item.alumno+' name="seleccion">'+item.alumno+'</button>')),				            
+					            $('<td>').text(item.nota)
+					    )
+			        );
+			    });
+			});
+		});
+		
+		/*$(':button').click(function(){
+			/*console.log($(this).parent().parent().prop('id'));
+			$.post("/NOB_Project/AlumnoServlet",function(data){
+				$(this).attr('id').html(data);
+				console.log($(this).parent().parent().prop('id'));
+			});
+			$('#acrOculto').val('hola');		
+		});*/
+		
+		/*function cambiar(){
+            var botonId = this.id;
+            $("#form").submit(function(e){
+                 e.preventDefault();//stop submit event
+                 var self = $(this);//this form
+                 $("#acrOculto").val(botonId);//change input
+                 $("#form").off("submit");//need form submit event off.
+                 self.submit();//submit form
+
+           });
+        }*/
+        
+		function cambiar(){
+        	 $("#form").submit();
+        }
+	}
+	
+	$('document').ready(onInicio(function(){
+	    //miramos si tiene '#' la url
+	    if(document.URL.indexOf("#")==-1){
+	        // si no se ha cargado aún añadimos "#"
+	        url = document.URL+"#";
+	        location = "#";
+
+	        //recargamos para que tenga los datos si o si ?? 
+	        location.reload(true);
+	    }
+	}))
+
+	</script>
+</head>
+<body>
+	<div>
+		<h1>Lista Alumnos</h1>
+		<form id="form" action ="/NOB_Project/gato.html" method= "get">
+			<table id="Alumnos"></table>
+		</form>
+		
+	</div>
+</body>
+</html>
