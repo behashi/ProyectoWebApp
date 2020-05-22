@@ -52,7 +52,6 @@
                  $("#acrOculto").val(botonId);//change input
                  $("#form").off("submit");//need form submit event off.
                  self.submit();//submit form
-
            });
         }*/
         
@@ -61,14 +60,24 @@
         }
 	}
 	
-	$('document').ready(onInicio())
+	$('document').ready(onInicio(function(){
+	    //miramos si tiene '#' la url
+	    if(document.URL.indexOf("#")==-1){
+	        // si no se ha cargado aún añadimos "#"
+	        url = document.URL+"#";
+	        location = "#";
+
+	        //recargamos para que tenga los datos si o si ?? 
+	        location.reload(true);
+	    }
+	}))
 
 	</script>
 </head>
 <body>
 	<div>
 		<h1>Lista asignaturas</h1>
-		<form id="form" action ="/NOB_Project/AsignaturaServlet" method= "post">
+		<form id="form" action ="/NOB_Project/listaAlumServlet" method= "get">
 			<table id="Asignaturas"></table>
 		</form>
 		

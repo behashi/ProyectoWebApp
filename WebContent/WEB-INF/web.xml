@@ -59,4 +59,24 @@
     <servlet-name>listaAsigServlet</servlet-name>
     <url-pattern>/listaAsigServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AlumnoServlet</display-name>
+    <servlet-name>AlumnoServlet</servlet-name>
+    <servlet-class>servlets.AlumnoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AlumnoServlet</servlet-name>
+    <url-pattern>/AlumnoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>listaAlumServlet</display-name>
+    <servlet-name>listaAlumServlet</servlet-name>
+    <servlet-class>servlets.listaAlumServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>listaAlumServlet</servlet-name>
+    <url-pattern>/listaAlumServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

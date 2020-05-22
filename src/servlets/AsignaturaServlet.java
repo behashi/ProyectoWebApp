@@ -61,7 +61,7 @@ public class AsignaturaServlet extends HttpServlet {
 		
 		//Creo la llamada HTTP para el REST
 		//URL url = new URL ("http://dew-algrlo-1920.dsic.cloud:9090/CentroEducativo/profesores/"+dni+"/asignaturas?key="+cookie.getValue().toLowerCase());
-		URL url = new URL ("http://dew-algrlo-1920.dsic.cloud:9090/CentroEducativo/profesores/"+dni+"/asignaturas?key="+key.toLowerCase());
+		URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/profesores/"+dni+"/asignaturas?key="+key.toLowerCase());
 
 		//URL url = new URL ("http://dew-swe-1920.dsic.cloud:9090/CentroEducativo/login");
 		//	response.getWriter().write("URL: "+url.toString()+"\n");
@@ -77,7 +77,7 @@ public class AsignaturaServlet extends HttpServlet {
 		
 		InputStream inputStream ;
 		/*try { 
-			//Aqui recogería lo que ha devuelto el GET. Habría que crear un json para ello
+			//Aqui recogería lo que ha devuelto el GET. Habria que crear un json para ello
 			 if (200 <= responseCode && responseCode <= 299) {
 			        inputStream = con.getInputStream();
 			    } else {
@@ -157,7 +157,7 @@ public class AsignaturaServlet extends HttpServlet {
 		session.setAttribute("key", key);
 		
 		ServletContext sc = this.getServletContext();
-        RequestDispatcher rd = sc.getRequestDispatcher("/gato.html"); //TODO cambiar por el html de la lista de asignaturas 
+        RequestDispatcher rd = sc.getRequestDispatcher("/Asignaturas.html"); //TODO cambiar por el html de la lista de asignaturas 
         response.setContentType("text/html");
         response.getWriter().write(acr);
         rd.include(request, response);
