@@ -6,29 +6,25 @@
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script>
 	function onInicio(){
-		$.get("/NOB_Project/AsignaturaServlet",function(data){			
+		$.get("/NOB_Project/AlumnoServlet",function(data){			
 			
 			response = $.parseJSON(data);
 
 			$(function() {
-				$('#Asignaturas').append(
+				$('#Alumnos').append(
 					$('<tr>').append(
-				            $('<td>').text('Acronimo'),					            
-				            $('<td>').text('Nombre'),
-				            $('<td>').text('Curso'),
-				            $('<td>').text('Cuatrimestre'),
-				            $('<td>').text('Creditos')
+							$('<td>').text('DNI'),				            
+				            $('<td>').text('Nota')
+				          
+				            
 				    )		
 				);				
 			    $.each(response, function(i, item) {
-			        $('#Asignaturas').append(			        		
-		        		$('<tr id='+item.acronimo+'>').append(
+			        $('#Alumnos').append(			        		
+		        		$('<tr id='+item.alumno+'>').append(
 					            $('<td>').append(					            		
-					            		$('<button id='+item.acronimo+' onclick="cambiar()" value='+item.acronimo+' name="boton">'+item.acronimo+'</button>')),				            
-					            $('<td>').text(item.nombre),
-					            $('<td>').text(item.curso),
-					            $('<td>').text(item.cuatrimestre),
-					            $('<td>').text(item.creditos)
+					            		$('<button id='+item.alumno+' onclick="cambiar()" value='+item.alumno+' name="seleccion">'+item.alumno+'</button>')),				            
+					            $('<td>').text(item.nota)
 					    )
 			        );
 			    });
@@ -52,6 +48,7 @@
                  $("#acrOculto").val(botonId);//change input
                  $("#form").off("submit");//need form submit event off.
                  self.submit();//submit form
+
            });
         }*/
         
@@ -76,9 +73,9 @@
 </head>
 <body>
 	<div>
-		<h1>Lista asignaturas</h1>
-		<form id="form" action ="/NOB_Project/listaAlumServlet" method= "get">
-			<table id="Asignaturas"></table>
+		<h1>Lista Alumnos</h1>
+		<form id="form" action ="/NOB_Project/gato.html" method= "get">
+			<table id="Alumnos"></table>
 		</form>
 		
 	</div>
