@@ -3,12 +3,17 @@
 	<head>
 		<title>Informaci&oacute;n alumno</title>
 		<meta charset="ISO-8859-1" />
-		<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src = "js/jquery.js"></script> 
 		<script>
 		function onInicio(){
-			$.get("/NOB_Project/AsignaturaServlet",function(data){			
+		
+			datosAl(asigAl());
 				
-				response = data;
+}	
+		function datosAl(){
+			$.get("/NOB_Project/DatoAlumnoServlet",function(data){			
+
+				response = $.parseJSON(data);
 
 				$(function() {
 					$('#Alumno').append(
@@ -18,58 +23,53 @@
 					            $('<td>').text('dni')      
 					    )		
 					);				
-				    $.each(response, function(i, item) {
 				        $('#Alumno').append(			        		
-			        		$('<tr id='+item.dni+'>').append(
-			            
-						            $('<td>').text(item.nombre),
-						            $('<td>').text(item.apellidos),
-						            $('<td>').text(item.dni)
+			        		$('<tr id='+data.dni+'>').append(
+						            $('<td>').text(response.nombre),
+						            $('<td>').text(response.apellidos),
+						            $('<td>').text(response.dni)  
+						    )
+				        );
+				});
+			});	
+				}
+		
+		function asigAl(){
+		$.get("/NOB_Project/listaAsigAlumno",function(data){			
+				
+				response = $.parseJSON(data);
+
+				console.log("sin parsear" + data);
+				
+				console.log("ya parseado" + response);
+					
+				$(function() {
+					$('#Asignaturas').append(
+						$('<tr>').append(
+					            $('<td>').text('Asignatura'),	
+					            $('<td>').text('Nota')
+					               
+					    )		
+					);				
+				    $.each(response, function(i, item) {
+				        $('#Asignaturas').append(			        		
+			        		$('<tr id="'+ item.asignatura + '">').append(
+						            $('<td>').text(item.asignatura),
+						            $('<td>').text(item.nota)			      
 						            
 						    )
 				        );
 				    });
 				});
-			});
-				
-				$.post("/NOB_Project/AsignaturaServlet",function(data){			
-					
-					response = data;
-
-					$(function() {
-						$('#Asignaturas').append(
-							$('<tr>').append(
-						            $('<td>').text('Asignaturas'),					            
-						           // $('<td>').text('Apellidos'),
-						           // $('<td>').text('dni')      
-						    )		
-						);				
-					    $.each(response, function(i, item) {
-					        $('#Asignaturas').append(			        		
-				        		$('<tr id="prueba">').append(
-				            
-							            $('<td>').text(item),
-							            //$('<td>').text(item.apellidos),
-							            //$('<td>').text(item.dni)
-							            
-							    )
-					        );
-					    });
-					});
-			});
-				
-}		
-		$('document').ready(onInicio())
-		    //miramos si tiene '#' la url
-		   
-		    
+		});
+		}
 		
-
+		$('document').ready(onInicio())
+				
 	</script>
 	</head>
 	<body>
 		<div id="insertar">
-			<!-- Pongo un gatete de placeholder hasta saber hacer lo del género" -->
 			<table id="Alumno"></table>
 			<table id="Asignaturas"></table>
 		</div>

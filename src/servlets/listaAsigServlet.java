@@ -30,7 +30,7 @@ public class listaAsigServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session=request.getSession(true);  
-		session.setAttribute("dni", request.getParameter("seleccion"));
+		session.setAttribute("dniAl", request.getParameter("seleccion"));
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/DatosAlumno.html");
 	    rd.forward(request, response);

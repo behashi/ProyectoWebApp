@@ -49,12 +49,7 @@ public class loginServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-		/**En caso de que sean correctas las credenciales se debe mostrar el html con la lista de asignaturas 
-		 * Cada asignatura es un href a la lista de alumnos de esa asignatura en caso de que la consulta a dicha 
-		 * lista sea correcta. 
-		 * Cada alumno de este segundo html es un href a los detalles de ese mismo alumno en caso de que la consulta
-		 * sea correcta.
-		 */
+		//En caso de que sean correctas las credenciales se debe mostrar el html con la lista de asignaturas 
     	
     	//Paso 1 - Pillar usuario y contraseña del profesor 
     	String usu = request.getParameter("user");
@@ -77,7 +72,7 @@ public class loginServlet extends HttpServlet {
 		
 		
 		//En la URL donde pone swe se debe sustituir por el user de cada uno de la upv.
-		URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/login");
+		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/login");
 		
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("POST");

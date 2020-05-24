@@ -49,13 +49,13 @@ public class DatoAlumnoServlet extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		
 		HttpSession sesion = request.getSession(false);
-		String dni = sesion.getAttribute("dni").toString();
+		String dni = sesion.getAttribute("dniAl").toString();
 		key = sesion.getAttribute("key").toString();
 		cookie = sesion.getAttribute("cookie").toString();
 			
 		//Creo la llamada HTTP para el REST
 		
-		URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+ dni + "?key=" + key.toLowerCase());
+		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+ dni + "?key=" + key.toLowerCase());
 
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("GET");
@@ -83,7 +83,6 @@ public class DatoAlumnoServlet extends HttpServlet {
 			System.out.print(e.getStackTrace());
 		}
 		
-		System.out.println("Respuesta del POST:  " + responseCode+"\n");
 		response.getWriter().write(p);	
 	}
 
@@ -100,12 +99,12 @@ public class DatoAlumnoServlet extends HttpServlet {
 
         //Paso 2 - Obtener los datos de sesion
         HttpSession sesion = request.getSession(false);
-        String dni = sesion.getAttribute("dni").toString();
+        String dni = sesion.getAttribute("dniAl").toString();
         key = sesion.getAttribute("key").toString();
         cookie = sesion.getAttribute("cookie").toString();
 
         //Paso 3 - Crear la llamada HTTP para el REST
-        URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+dni+"/asignaturas?key="+key.toLowerCase()) ;
+        URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+dni+"/asignaturas?key="+key.toLowerCase()) ;
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-Type", "application/json; utf-8");
