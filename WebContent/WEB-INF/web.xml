@@ -99,4 +99,14 @@
     <servlet-name>listaAsigAlumno</servlet-name>
     <url-pattern>/listaAsigAlumno</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>loginAlServlet</display-name>
+    <servlet-name>loginAlServlet</servlet-name>
+    <servlet-class>servlets.loginAlServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginAlServlet</servlet-name>
+    <url-pattern>/loginAlServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
