@@ -2983,9 +2983,9 @@ fieldset:disabled a.btn {
   border-radius: 0.2rem;
 }
 
-.btn-block {
+.btn-block {			/*Modifica el tamaño del boton de login*/
   display: block;
-  width: 100%;
+  width: 50%;
 }
 
 .btn-block + .btn-block {
@@ -8343,7 +8343,7 @@ button.bg-dark:focus {
 }
 
 .mx-leftInicio {										/*Creado para alinear a la izquierda el cuerpo de Inicio.html*/
-  margin-left: 0px !important;
+  margin-left: 20px !important;
   margin-right: auto !important;
 }
 
