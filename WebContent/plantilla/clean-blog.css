@@ -412,3 +412,14 @@ footer .copyright {
   font-size: 16px;
   padding: 15px 35px;
 }
+
+.btn2 {								/*Modifica la alineacion del boton de DNI's*/
+  margin-left: auto; margin-right: auto;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 6px 6px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 2;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
