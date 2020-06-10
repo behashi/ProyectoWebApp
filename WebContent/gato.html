@@ -10,6 +10,8 @@
 function onInicio(){
 		$.get('https://api.thecatapi.com/v1/images/search', function(data){
 			//la pagina ya devuelve el json parseado!! 
+			console.log(data.size);
+			document.write(data.length);
 			$('#imgGato').attr('src', data[0].url);
 		});
 }

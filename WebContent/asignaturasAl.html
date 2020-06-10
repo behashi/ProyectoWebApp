@@ -34,29 +34,28 @@
 	
 	function generarMedia(){
 		
-		var notaMed = 0;
+		var notaTotal = 0;
 		var cont = 0;
+		var notaMed = 0;
 		
 		$('td[name ="nota"]').each(function(i){
-			
 			 //si es nulo sumo 0, no tiene nota en esa asignatura.
-			if(this.text() == "" || this.text() == null){
-				
-				notaMed += 0;
+			if($(this).val() == "" || $(this).val() == null){
+				notaTotal += 0;
 				cont++;
-				
 			} else{
-				
-				notaMed += this.text();
+				notaTotal += $(this).val();
 				cont++;		
 			}
-			
 		})
 		
-		notaMed = notaMed / cont;
-		
-		$('#notaMedia').append("<p>Tu nota media es:" + notaMed + "</p>");
-		
+		if(notaTotal == 0) {
+			alert("Tu nota media es:" + notaMed);
+		} else {
+			notaMed = notaTotal / cont;
+			alert("Tu nota media es:" + notaMed);
+		}
+
 	}
 	
 	

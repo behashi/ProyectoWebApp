@@ -48,7 +48,7 @@ public class listaAsigAlumno extends HttpServlet {
 		cookie = sesion.getAttribute("cookie").toString();
 		
 		//Creo la llamada HTTP para el REST
-		URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+dni+"/asignaturas?key="+key.toLowerCase());
+		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+dni+"/asignaturas?key="+key.toLowerCase());
 
 		//URL url = new URL ("http://dew-swe-1920.dsic.cloud:9090/CentroEducativo/login");
 		//	response.getWriter().write("URL: "+url.toString()+"\n");
@@ -60,15 +60,12 @@ public class listaAsigAlumno extends HttpServlet {
 		con.setDoOutput(false);
 
 		int responseCode = con.getResponseCode();
-		
-		InputStream inputStream ;
-		
+				
 		try {
 			BufferedReader in = new BufferedReader(
 					  new InputStreamReader(con.getInputStream()));
 			String inputLine;
 			StringBuffer content = new StringBuffer();
-			int i = 0;
 			while ((inputLine = in.readLine()) != null) {
 			    content.append(inputLine);
 			    //p += content;
@@ -81,7 +78,6 @@ public class listaAsigAlumno extends HttpServlet {
 		}
 		
 		System.out.println("Respuesta del POST:  " + responseCode+"\n");
-		//writer.print(res);
 		response.getWriter().write(p);
 	}
 
