@@ -55,7 +55,9 @@
 				        $('#Asignaturas').append(			        		
 			        		$('<tr id="'+ item.asignatura + '">').append(
 						            $('<td>').text(item.asignatura),
-						            $('<td>').text(item.nota)			      
+						            $('<td>').text(item.nota),
+						            $('<td>').append(
+                                        $('<button onclick="cambiarNota()" class="btn2 btn-lg btn-primary btn-block" value='+item.asignatura+'name="modificar">Modificar</button>'))
 						            
 						    )
 				        );
@@ -64,7 +66,35 @@
 		});
 		}
 		
-		$('document').ready(onInicio())
+		
+		function cambiarNota(){
+			var mensaje;
+	        var nota = prompt("Introduzca la nueva Nota:",);
+
+	        if (nota == null || nota == "" || nota < 0 || nota > 10) {
+	                alert("El valor no ha sido introducido o no es válido");
+	                }
+	        else {
+	        	
+	        	
+	        	$.ajax({
+	        	url     : '/NOB_Project/CambiaNotaServlet',
+	        	method     : 'GET',
+	        	data     : nota,
+	        	dataype : 'text',
+	        	success    : function() {alert("la nota ha sido modificada a "+nota)}; 
+	        	error : function() {alert("Ha ocurrido un error")}; 
+	        	});
+	        	
+			}
+	        
+	     }
+	        
+
+	    
+		
+		
+		$('document').ready(onInicio());
 				
 	</script>
 	</head>

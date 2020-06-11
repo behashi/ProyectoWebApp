@@ -72,7 +72,7 @@ public class loginServlet extends HttpServlet {
 		
 		
 		//En la URL donde pone swe se debe sustituir por el user de cada uno de la upv.
-		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/login");
+		URL url = new URL ("http://localhost:9090/CentroEducativo/login");
 		
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("POST");
