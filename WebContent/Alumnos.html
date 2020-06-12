@@ -41,7 +41,7 @@
 		        		$('<tr id='+item.alumno+'>').append(
 					            $('<td>').append(					            		
 					            		$('<button class="btn2 btn-lg btn-primary btn-block" id='+item.alumno+' onclick="cambiar()" value='+item.alumno+' name="seleccion">'+item.alumno+'</button>')),				            
-					            $('<td>').text(item.nota)
+					            $('<td name="nota">').text(item.nota)
 					    )
 			        );
 			    });
@@ -51,6 +51,32 @@
 		function cambiar(){
         	 $("#form").submit();
         }
+	}
+	
+function generarMedia(){
+		
+		var notaTotal = 0;
+		var cont = 0;
+		var notaMed = 0;
+		
+		$('td[name ="nota"]').each(function(i){
+			 //si es nulo sumo 0, no tiene nota en esa asignatura.
+			if($(this).val() == "" || $(this).val() == null){
+				notaTotal += 0;
+				cont++;
+			} else{
+				notaTotal += $(this).val();
+				cont++;		
+			}
+		})
+		
+		if(notaTotal == 0) {
+			alert("Tu nota media es:" + notaMed);
+		} else {
+			notaMed = notaTotal / cont;
+			alert("Tu nota media es:" + notaMed);
+		}
+
 	}
 	
 	$('document').ready(onInicio(function(){
@@ -91,11 +117,12 @@
 		<form id="form" action ="/NOB_Project/listaAsigServlet" method= "get">
 			<table class="table" id="Alumnos"></table>
 		</form>
+		<button id="notaMedia" onclick="generarMedia()">Calcular Media</button> 
 		
 	</div>
   	  </div>
   	</div>
-  </div>	
+  </div>
 	
 <!-- Footer -->
   <footer>

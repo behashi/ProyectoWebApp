@@ -29,8 +29,8 @@ import org.json.JSONObject;
 
 /**
  * Servlet implementation class loginServlet
- * Este servlet se utiliza en la implementaci髇 del primer hito del proyecto;
- * en 閘 se debe permitir logearse y ofrecer ciertas funcionalidades a un profesor.
+ * Este servlet se utiliza en la implementaci贸n del primer hito del proyecto;
+ * en 茅l se debe permitir logearse y ofrecer ciertas funcionalidades a un profesor.
  */
 public class loginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -51,7 +51,7 @@ public class loginServlet extends HttpServlet {
     	
 		//En caso de que sean correctas las credenciales se debe mostrar el html con la lista de asignaturas 
     	
-    	//Paso 1 - Pillar usuario y contrase馻 del profesor 
+    	//Paso 1 - Pillar usuario y contrase帽a del profesor 
     	String usu = request.getParameter("user");
     	String pass = request.getParameter("pass");
     	
@@ -72,6 +72,7 @@ public class loginServlet extends HttpServlet {
 		
 		
 		//En la URL donde pone swe se debe sustituir por el user de cada uno de la upv.
+
 		URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/login");
 		
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -90,7 +91,7 @@ public class loginServlet extends HttpServlet {
 
 		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe el dni en la api*
 
-			//Capturo la cookie de la sesi髇 httpurl para comprobar si ha fallado la contrase馻 
+			//Capturo la cookie de la sesi贸n httpurl para comprobar si ha fallado la contrase帽a 
 			String  cookieVal = con.getHeaderField("Set-Cookie");
 			String p;
 			StringBuffer content;
@@ -114,11 +115,11 @@ public class loginServlet extends HttpServlet {
 			
 			
 			
-			//si no hay header de set-cookie la contrase馻 esta mal
+			//si no hay header de set-cookie la contrase帽a esta mal
 			if(cookieVal == null) {
 				PrintWriter outAux = response.getWriter();
-				//TODO imprimir una pagina html con un p醨rafo hom髄ogo
-				outAux.println("Autenticaci髇 incorrecta");
+				//TODO imprimir una pagina html con un p谩rrafo hom贸logo
+				outAux.println("Autenticaci贸n incorrecta");
 				
 			} else {
 			
@@ -146,11 +147,11 @@ public class loginServlet extends HttpServlet {
 			System.out.println("POST fallido o credenciales incorrectas");
 			
 			//debug
-			System.out.println("El responsecode de la conexi髇 es: " + responseCode);
+			System.out.println("El responsecode de la conexi贸n es: " + responseCode);
 			
 			PrintWriter out = response.getWriter();
-			//TODO imprimir una pagina html con un p醨rafo hom髄ogo
-			out.println("Autenticaci髇 incorrecta");
+			//TODO imprimir una pagina html con un p谩rrafo hom贸logo
+			out.println("Autenticaci贸n incorrecta");
 		}
 	
 	}
