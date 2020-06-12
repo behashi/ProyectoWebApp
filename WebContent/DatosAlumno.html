@@ -21,9 +21,10 @@
 		<script>
 		function onInicio(){
 
-			datosAl(asigAl());
-
-}
+			setTimeout(datosAl(asigAl()),1000);
+			
+				
+		}
 		function datosAl(){
 			$.get("/NOB_Project/DatoAlumnoServlet",function(data){
 
@@ -31,7 +32,7 @@
 
 				$(function() {
 				        $('#Alumno').append(
-			        		$('<tr id='+data.dni+'>').append(
+			        		$('<tr id=' + data.dni + '>').append(
 						            $('<td>').text(response.nombre),
 						            $('<td>').text(response.apellidos),
 						            $('<td>').text('(' + response.dni ')')
@@ -42,7 +43,8 @@
 				}
 
 		function asigAl(){
-		$.get("/NOB_Project/listaAsigAlumno",function(data){
+			var acr = "";
+			$.get("/NOB_Project/listaAsigAlumno",function(data){
 
 		 		response = $.parseJSON(data);
 
@@ -59,7 +61,21 @@
 		 		    $.each(response, function(i, item) {
 				        $('#Asignaturas').append(
 			        		$(' '+ $('<td>').text(item.asignatura) + ' ')
+					            $('<td>').text('Asignatura'),	
+					            $('<td>').text('Nota')
+					    )		
+					);				
+				    $.each(response, function(i, item) {
+				    	if(item.asignatura == acr){
+				        $('#Asignaturas').append(			        		
+			        		$('<tr id="'+ item.asignatura + '">').append(
+						            $('<td>').text(item.asignatura),
+						            $('<td>').text(item.nota),
+						            $('<td>').append(
+                                        $('<button form="form" onclick="cambiarNota()" id="modificar" class="btn2 btn-lg btn-primary btn-block" value="'+item.nota+'" name="modificar">Modificar</button>'))						            
+						    )
 				        );
+				    	}
 				    });
 				    $('#Asignaturas').append(
 							$('<tr>').append(
@@ -68,6 +84,30 @@
 						);
 				});
 		});
+		$.get("/NOB_Project/ObtenerAcrProfesor",function(data){
+			
+			acr = data;
+			console.log(acr);
+			
+		});
+		}
+			
+		function cambiarNota(){
+			var mensaje;
+		    var nota = prompt("Introduzca la nueva Nota:",);
+
+		    if (nota == null || nota == "" || nota < 0 || nota > 10) {
+		                alert("El valor no ha sido introducido o no es válido");
+		                }
+		    else {
+		    	$('#modificar').prop('value',nota);
+		        /*$.get("/NOB_Project/CambiaNotaServlet",function(){
+		        	console.log("La nota se ha modificado con éxito");
+		        	 	
+		        });*/
+		        $('#form').submit();
+			}
+		        
 		}
 
 		$('document').ready(onInicio())
