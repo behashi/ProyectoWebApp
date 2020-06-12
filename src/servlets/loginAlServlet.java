@@ -37,7 +37,7 @@ public class loginAlServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	//En caso de que sean correctas las credenciales se debe mostrar el html con la lista de asignaturas 
     	
-    	//Paso 1 - Pillar usuario y contrase馻 del profesor 
+    	//Paso 1 - Pillar usuario y contrase帽a del profesor 
     	String usu = request.getParameter("user");
     	String pass = request.getParameter("pass");
     	
@@ -58,6 +58,7 @@ public class loginAlServlet extends HttpServlet {
 		
 		
 		//En la URL donde pone swe se debe sustituir por el user de cada uno de la upv.
+
 		URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/login");
 		
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -76,7 +77,7 @@ public class loginAlServlet extends HttpServlet {
 
 		if (responseCode == HttpURLConnection.HTTP_OK) { //Existe el dni en la api*
 
-			//Capturo la cookie de la sesi髇 httpurl para comprobar si ha fallado la contrase馻 
+			//Capturo la cookie de la sesi贸n httpurl para comprobar si ha fallado la contrase帽a 
 			String  cookieVal = con.getHeaderField("Set-Cookie");
 			String p;
 			StringBuffer content;
@@ -100,11 +101,11 @@ public class loginAlServlet extends HttpServlet {
 			
 			
 			
-			//si no hay header de set-cookie la contrase馻 esta mal
+			//si no hay header de set-cookie la contrase帽a esta mal
 			if(cookieVal == null) {
 				PrintWriter outAux = response.getWriter();
-				//TODO imprimir una pagina html con un p醨rafo hom髄ogo
-				outAux.println("Autenticaci髇 incorrecta");
+				//TODO imprimir una pagina html con un p谩rrafo hom贸logo
+				outAux.println("Autenticaci贸n incorrecta");
 				
 			} else {
 			
@@ -123,11 +124,11 @@ public class loginAlServlet extends HttpServlet {
 			System.out.println("POST fallido o credenciales incorrectas");
 			
 			//debug
-			System.out.println("El responsecode de la conexi髇 es: " + responseCode);
+			System.out.println("El responsecode de la conexi贸n es: " + responseCode);
 			
 			PrintWriter out = response.getWriter();
-			//TODO imprimir una pagina html con un p醨rafo hom髄ogo
-			out.println("Autenticaci髇 incorrecta");
+			//TODO imprimir una pagina html con un p谩rrafo hom贸logo
+			out.println("Autenticaci贸n incorrecta");
 		}
 	}
 

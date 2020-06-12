@@ -52,6 +52,7 @@ public class listaAsigAlumno extends HttpServlet {
 		String acr = sesion.getAttribute("acr").toString();
 		
 		//Creo la llamada HTTP para el REST
+
 		URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+dni+"/asignaturas?key="+key.toLowerCase());
 
 		//URL url = new URL ("http://dew-swe-1920.dsic.cloud:9090/CentroEducativo/login");
