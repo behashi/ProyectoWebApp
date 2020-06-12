@@ -80,8 +80,8 @@
 			var mensaje;
 	        var nota = prompt("Introduzca la nueva Nota:",);
 
-	        if (nota == null || nota == "" || nota < 0 || nota > 10) {
-	                alert("El valor no ha sido introducido o no es válido");
+	        if (nota == null || nota == "" || nota < 0 || nota > 10 || isNaN(nota)) {
+	                alert("El valor no ha sido introducido o no es v&aacutelido");
 	                }
 	        else {
 	        	$('#modificar').prop('value',nota);
