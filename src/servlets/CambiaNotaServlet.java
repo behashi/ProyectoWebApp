@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -30,18 +31,20 @@ public class CambiaNotaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sesion = request.getSession(false);
-		String acr = request.getParameter("modificar");
 		String dni = sesion.getAttribute("dniAl").toString();
-		String nota = request.getParameter("nota");
 		key = sesion.getAttribute("key").toString();
         cookie = sesion.getAttribute("cookie").toString();
-        
-        URL url = new URL ("http://localhost:9090/CentroEducativo/asignaturas/"+ acr +"/alumnos?key="+key.toLowerCase());
+        String acr = sesion.getAttribute("acr").toString();
+        String nota = request.getParameter("modificar").toString();
+        try {
+        URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+dni+"/asignatura/"+acr+"?key="+key.toLowerCase());
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("PUT");
 		con.setRequestProperty("Cookie",cookie);
+		con.setRequestProperty("Content-Type", "application/json");
+		con.setRequestProperty("Accept", "application/json");
 		con.setDoOutput(true);
-		JSONObject notaCambiada =new JSONObject();
+		/*JSONObject notaCambiada =new JSONObject();
     	
 		try {    
 			notaCambiada.put("nota", nota);
@@ -50,28 +53,35 @@ public class CambiaNotaServlet extends HttpServlet {
 			OutputStream os = con.getOutputStream();
 		    byte[] input = notaCambiada.toString().getBytes("utf-8");
 		    os.write(input, 0, input.length);           
-		} catch (Exception e) { System.out.print(e.getStackTrace()); } 
-        
+		} catch (Exception e) { System.out.print(e.getStackTrace()); } */
+		OutputStreamWriter ow = new OutputStreamWriter(con.getOutputStream());
+		ow.write(nota);
+		ow.flush();
 		int responseCode = con.getResponseCode();
-		System.out.println("Respuesta del POST:  " + responseCode);
+		System.out.println("Respuesta del PUT:  " + responseCode);
 
 		if (responseCode == HttpURLConnection.HTTP_OK) {
 			ServletContext sc = this.getServletContext();
-			RequestDispatcher rd = sc.getRequestDispatcher("/DatoAlumnoServlet");
-			rd.include(request, response);
+			response.getWriter().write("Se ha insertado la nota");
+			
 		}
+       }catch (Exception e){
+    	   PrintWriter oute = response.getWriter();
+    	   response.setContentType("text/html");
+    	   oute.println(e);
+       }  
         
-        /*
         PrintWriter out = response.getWriter();
         response.setContentType("text/html");
         String pre = "<!DOCTYPE html>\n<html>\n<head>\n"
     			+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />";
         out.println(pre);
-		out.println("<h1>"+arc+"</h1>");
+		out.println("<h1>"+acr+"</h1>");
 		out.println("<h1>"+dni+"</h1>");
 		out.println("<h1>"+key+"</h1>");
 		out.println("<h1>"+cookie+"</h1>");
-		out.println("</body>\n</html>");*/
+		out.println("<h1>"+nota+"</h1>");
+		out.println("</body>\n</html>"); 
 	}
 
 
