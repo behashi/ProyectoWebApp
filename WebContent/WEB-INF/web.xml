@@ -109,4 +109,24 @@
     <servlet-name>loginAlServlet</servlet-name>
     <url-pattern>/loginAlServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CambiaNotaServlet</display-name>
+    <servlet-name>CambiaNotaServlet</servlet-name>
+    <servlet-class>servlets.CambiaNotaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CambiaNotaServlet</servlet-name>
+    <url-pattern>/CambiaNotaServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ObtenerAcrProfesor</display-name>
+    <servlet-name>ObtenerAcrProfesor</servlet-name>
+    <servlet-class>servlets.ObtenerAcrProfesor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ObtenerAcrProfesor</servlet-name>
+    <url-pattern>/ObtenerAcrProfesor</url-pattern>
+  </servlet-mapping>
 </web-app>
