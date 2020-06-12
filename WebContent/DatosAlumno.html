@@ -1,78 +1,120 @@
 <!DOCTYPE html>
 <html lang="es-es">
 	<head>
-		<title>Informaci&oacute;n alumno</title>
-		<meta charset="ISO-8859-1" />
-		<script src = "js/jquery.js"></script> 
+	  <meta charset="ISO-8859-1" />
+ 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 		<title>Informaci&oacute;n alumno</title>
+ 		<!-- Bootstrap core CSS -->
+ 		<link href="css/bootstrap.css" rel="stylesheet">
+
+ 	  <!-- Custom fonts for this template -->
+ 		<link href="plantilla/css/all.css" rel="stylesheet" type="text/css">
+ 	 	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+ 	  <!-- Custom styles for this template -->
+ 	  <link href="plantilla/clean-blog.css" rel="stylesheet">
+ 		<link href="signin.css" rel="stylesheet">
+ 		<script src = "js/jquery.js"></script>
+
+
 		<script>
 		function onInicio(){
-		
+
 			datosAl(asigAl());
-				
-}	
+
+}
 		function datosAl(){
-			$.get("/NOB_Project/DatoAlumnoServlet",function(data){			
+			$.get("/NOB_Project/DatoAlumnoServlet",function(data){
 
 				response = $.parseJSON(data);
 
 				$(function() {
-					$('#Alumno').append(
-						$('<tr>').append(
-					            $('<td>').text('Nombre'),					            
-					            $('<td>').text('Apellidos'),
-					            $('<td>').text('dni')      
-					    )		
-					);				
-				        $('#Alumno').append(			        		
+				        $('#Alumno').append(
 			        		$('<tr id='+data.dni+'>').append(
 						            $('<td>').text(response.nombre),
 						            $('<td>').text(response.apellidos),
-						            $('<td>').text(response.dni)  
+						            $('<td>').text('(' + response.dni ')')
 						    )
 				        );
 				});
-			});	
+			});
 				}
-		
+
 		function asigAl(){
-		$.get("/NOB_Project/listaAsigAlumno",function(data){			
-				
-				response = $.parseJSON(data);
+		$.get("/NOB_Project/listaAsigAlumno",function(data){
+
+		 		response = $.parseJSON(data);
 
 				console.log("sin parsear" + data);
-				
+
 				console.log("ya parseado" + response);
-					
+
 				$(function() {
 					$('#Asignaturas').append(
 						$('<tr>').append(
-					            $('<td>').text('Asignatura'),	
-					            $('<td>').text('Nota')
-					               
-					    )		
-					);				
-				    $.each(response, function(i, item) {
-				        $('#Asignaturas').append(			        		
-			        		$('<tr id="'+ item.asignatura + '">').append(
-						            $('<td>').text(item.asignatura),
-						            $('<td>').text(item.nota)			      
-						            
-						    )
+					            $('<td>').text('[Matriculad&#64; en: ')
+					    )
+		 			);
+		 		    $.each(response, function(i, item) {
+				        $('#Asignaturas').append(
+			        		$(' '+ $('<td>').text(item.asignatura) + ' ')
 				        );
 				    });
+				    $('#Asignaturas').append(
+							$('<tr>').append(
+						            $('<td>').text(']')
+						    )
+						);
 				});
 		});
 		}
-		
+
 		$('document').ready(onInicio())
-				
-	</script>
-	</head>
-	<body>
-	<h1>Datos Personales Alumno</h1>
-		<div id="insertar">
-			<table id="Alumno"></table>
-			<table id="Asignaturas"></table>
-		</div>
-	</body>
+
+ 	</script>
+ 	</head>
+ 	<body class="text-center">
+ 		<header class="masthead" style="background-image: url('imagenes/Alumnos.jpg')">
+ 	    <div class="overlay"></div>
+ 	    <div class="container-fluid">
+ 	      <div class="row">
+ 	        <div class="col-lg-8 col-md-10 mx-auto">
+ 	          <div class="site-heading">
+ 				<h1>Datos Personales Alumno</h1>
+ 			  </div>
+ 	        </div>
+ 	      </div>
+ 	    </div>
+ 	  </header>
+ 	  <div class="container">
+ 	    <div class="row">
+ 	      <div class="col-lg-1 col-md-10 mx-auto">
+ 	  		<img class="mb-4" src="imagenes/h/1.png" alt="" width="185" height="185">
+ 	  		<div>
+ 				<div id="insertar">
+ 				<table id="Alumno"></table>
+ 				<table id="Asignaturas"></table>
+ 		</div>
+ 		</div>
+ 	  	  </div>
+ 	  	</div>
+ 	  </div>
+
+ 	<!-- Footer -->
+ 	  <footer>
+ 	    <div class="container">
+ 	      <div class="row">
+ 	        <div class="col-lg-8 col-md-10 mx-auto">
+ 	    	  <p class="copyright text-muted">Trabajo en grupo realizado para la asignatura Desarrollo Web. Curso 2019-2020</p>
+ 	        </div>
+ 	      </div>
+ 	    </div>
+ 	  </footer>
+	    	<script src="vendor/jquery/jquery.min.js"></script>
+ 		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+ 		<!-- Custom scripts for this template -->
+ 		<script src="js/clean-blog.js"></script>
+ 	</body>
 </html>
