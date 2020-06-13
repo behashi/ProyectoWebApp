@@ -139,4 +139,14 @@
     <servlet-name>logOutServlet</servlet-name>
     <url-pattern>/logOutServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ImagenServlet</display-name>
+    <servlet-name>ImagenServlet</servlet-name>
+    <servlet-class>servlets.ImagenServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImagenServlet</servlet-name>
+    <url-pattern>/ImagenServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

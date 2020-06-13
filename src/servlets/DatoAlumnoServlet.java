@@ -56,7 +56,7 @@ public class DatoAlumnoServlet extends HttpServlet {
 		//Creo la llamada HTTP para el REST
 		
 
-		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+ dni + "?key=" + key.toLowerCase());
+		URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+ dni + "?key=" + key.toLowerCase());
 
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("GET");
@@ -106,7 +106,7 @@ public class DatoAlumnoServlet extends HttpServlet {
 
         //Paso 3 - Crear la llamada HTTP para el REST
 
-        URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+dni+"/asignaturas?key="+key.toLowerCase()) ;
+        URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+dni+"/asignaturas?key="+key.toLowerCase()) ;
     
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         connection.setRequestMethod("GET");

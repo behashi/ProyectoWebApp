@@ -6,10 +6,10 @@
 		<script src = "js/jquery.js"></script> 
 		<script>
 		function onInicio(){
-			setTimeout(datosAl(asigAl()),1000);
+			setTimeout(datosAl(asigAl(getImagenes())),1000);
 			
 				
-}	
+        }	
 		function datosAl(){
 			$.get("/NOB_Project/DatoAlumnoServlet",function(data){			
 
@@ -32,7 +32,17 @@
 				        );
 				});
 			});	
-				}
+		}
+		function getImagenes(){
+			console.log("Llego a entrar");
+			$.get("/NOB_Project/ImagenServlet",function(data){
+				response = $.parseJSON(data);
+				console.log("me llega esto" + response);
+
+				$("#avatar").attr("src", "data:image/png;base64," + response.img);
+			});
+			
+		}
 		
 		function asigAl(){
 			var acr = "";
@@ -70,7 +80,7 @@
 		$.get("/NOB_Project/ObtenerAcrProfesor",function(data){
 			
 			acr = data;
-			console.log(acr);
+			
 			
 		});
 		}
@@ -89,11 +99,8 @@
 			}
 	        
 	     }
-	        
-
-	    
 		
-		
+	        	
 		$('document').ready(onInicio());
 				
 	</script>
@@ -102,6 +109,7 @@
 	<h1>Datos Personales Alumno</h1>
 		<div id="insertar">
 			<table id="Alumno"></table>
+			<img id="avatar" width="180" height="200">
 			<table id="Asignaturas"></table>
 			<form id="form" action ="/NOB_Project/CambiaNotaServlet" method= "get">
 			</form>
