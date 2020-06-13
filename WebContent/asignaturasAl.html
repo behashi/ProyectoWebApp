@@ -30,6 +30,16 @@
 		});
 		
 	}
+	function getImagenes(){
+		console.log("Llego a entrar");
+		$.get("/NOB_Project/ImagenServlet",function(data){
+			response = $.parseJSON(data);
+			console.log("me llega esto" + response);
+
+			$("#avatar").attr("src", "data:image/png;base64," + response.img);
+		});
+		
+	}
 	
 	
 	function generarMedia(){
@@ -60,12 +70,14 @@
 	
 	
 	$('document').ready(onInicio());
+	$('document').ready(getImagenes());
 
 	</script>
 </head>
 <body>
 	<div>
 		<h1>Lista asignaturas Alumno</h1>
+		<img id="avatar" width="180" height="200">
 		<form id="form" action ="/NOB_Project/listaAlumServlet" method= "get">
 			<table id="Asignaturas"></table>
 		</form>
