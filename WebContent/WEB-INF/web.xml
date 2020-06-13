@@ -129,4 +129,14 @@
     <servlet-name>ObtenerAcrProfesor</servlet-name>
     <url-pattern>/ObtenerAcrProfesor</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>logOutServlet</display-name>
+    <servlet-name>logOutServlet</servlet-name>
+    <servlet-class>servlets.logOutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>logOutServlet</servlet-name>
+    <url-pattern>/logOutServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

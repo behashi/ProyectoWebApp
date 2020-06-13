@@ -53,7 +53,7 @@
         }
 	}
 	
-function generarMedia(){
+	function generarMedia(){
 		
 		var notaTotal = 0;
 		var cont = 0;
@@ -61,16 +61,16 @@ function generarMedia(){
 		
 		$('td[name ="nota"]').each(function(i){
 			 //si es nulo sumo 0, no tiene nota en esa asignatura.
-			if($(this).val() == "" || $(this).val() == null){
+			if($(this).html() == "" || $(this).html() == null){
 				notaTotal += 0;
 				cont++;
 			} else{
-				notaTotal += $(this).val();
+				notaTotal += parseFloat($(this).html());
 				cont++;		
 			}
 		})
 		
-		if(notaTotal == 0) {
+		if(notaTotal <= 0) {
 			alert("Tu nota media es:" + notaMed);
 		} else {
 			notaMed = notaTotal / cont;
@@ -118,6 +118,11 @@ function generarMedia(){
 			<table class="table" id="Alumnos"></table>
 		</form>
 		<button id="notaMedia" onclick="generarMedia()">Calcular Media</button> 
+		
+		
+		<form id="logOut" action ="/NOB_Project/logOutServlet" method= "get">
+			<button type="submit" value="LogOut">Cerrar Sesi&oacuten</button>
+		</form>
 		
 	</div>
   	  </div>

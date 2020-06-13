@@ -62,7 +62,7 @@ public class AsignaturaServlet extends HttpServlet {
 		//Creo la llamada HTTP para el REST
 		//URL url = new URL ("http://dew-algrlo-1920.dsic.cloud:9090/CentroEducativo/profesores/"+dni+"/asignaturas?key="+cookie.getValue().toLowerCase());
 
-		URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/profesores/"+dni+"/asignaturas?key="+key.toLowerCase());
+		URL url = new URL ("http://dew-jomangas-1920.dsic.cloud:9090/CentroEducativo/profesores/"+dni+"/asignaturas?key="+key.toLowerCase());
 
 		//URL url = new URL ("http://dew-swe-1920.dsic.cloud:9090/CentroEducativo/login");
 		//	response.getWriter().write("URL: "+url.toString()+"\n");
