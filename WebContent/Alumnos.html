@@ -29,7 +29,7 @@
 
 			$(function() {
 				$('#Alumnos').append(
-					$('<tr>').append(
+					$('<tr style="background-color : #0085A1; color : white;">').append(
 							$('<th>').text('DNI'),				            
 				            $('<th>').text('Nota')
 				          
@@ -40,7 +40,7 @@
 			        $('#Alumnos').append(			        		
 		        		$('<tr id='+item.alumno+'>').append(
 					            $('<td>').append(					            		
-					            		$('<button class="btn2 btn-lg btn-primary btn-block" id='+item.alumno+' onclick="cambiar()" value='+item.alumno+' name="seleccion">'+item.alumno+'</button>')),				            
+					            		$('<button class="btn2 btn-lg btn-asig btn-block" id='+item.alumno+' onclick="cambiar()" value='+item.alumno+' name="seleccion">'+item.alumno+'</button>')),				            
 					            $('<td name="nota">').text(item.nota)
 					    )
 			        );
@@ -96,7 +96,7 @@
 
 <body class="text-center">
 <!-- Page Header -->
-  <header class="masthead" style="background-image: url('imagenes/Alumnos.jpg')">
+  <header class="masthead" style="background-image: url('imagenes/Profesor.jpg')">
     <div class="overlay"></div>
     <div class="container-fluid">
       <div class="row">
@@ -109,19 +109,22 @@
       </div>
     </div>
   </header>
+  
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-md-10 mx-auto">
-  		<img class="mb-4" src="imagenes/logoNOL.jpg" alt="" width="100" height="72">
+  		
   		<div>
 		<form id="form" action ="/NOB_Project/listaAsigServlet" method= "get">
-			<table class="table" id="Alumnos"></table>
+			<table class="table table-bordered table-condensed" id="Alumnos"></table>
 		</form>
-		<button id="notaMedia" onclick="generarMedia()">Calcular Media</button> 
+		<a href="/NOB_Project/Asignaturas.html"><input type="button" class="btn2 btn-lg btn-primary btn-as" value="Atras"></a>
+		<button class="btn2 btn-lg btn-primary btn-as" id="notaMedia" onclick="generarMedia()">Calcular Media</button> 
 		
 		
 		<form id="logOut" action ="/NOB_Project/logOutServlet" method= "get">
-			<button type="submit" value="LogOut">Cerrar Sesi&oacuten</button>
+			
+			<button class="btn2 btn-lg btn-logout btn-as" type="submit" value="LogOut">Cerrar Sesi&oacuten</button>
 		</form>
 		
 	</div>
@@ -134,7 +137,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-    	  <p class="copyright text-muted">Trabajo en grupo realizado para la asignatura Desrrollo Web. Curso 2019-2020</p>
+    	  <p class="copyright text-muted">Trabajo en grupo realizado para la asignatura Desarrollo Web. Curso 2019-2020</p>
         </div>
       </div>
     </div>

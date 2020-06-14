@@ -371,6 +371,7 @@ form .form-group:first-child .floating-label-form-group {
 
 footer {																						/*Cambia la posicion del footer"Trabajo en grupo realizado......" */
   padding: 70px 0 65px;
+  
 }
 
 footer .list-inline {
@@ -413,7 +414,16 @@ footer .copyright {
   padding: 15px 35px;
 }
 
+.sp {
+	margin-top: 120px;
+	
+}
+
+.btn-asig {
+	background-color : #AECFDF;
+}
 .btn2 {								/*Modifica la alineacion del boton de DNI's*/
+  
   margin-left: auto; margin-right: auto;
   font-size: 14px;
   font-weight: 800;

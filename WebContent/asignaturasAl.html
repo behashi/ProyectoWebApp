@@ -4,6 +4,20 @@
 	<meta charset="ISO-8859-1">
 	<title>Asignaturas Alumno</title>
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.css" rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+<link href="plantilla/css/all.css" rel="stylesheet" type="text/css">
+<link
+	href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+
+<!-- Custom styles for this template -->
+<link href="plantilla/clean-blog.css" rel="stylesheet">
 	<script>
 	function onInicio(){
 		$.get("/NOB_Project/listaAsigAlumno",function(data){			
@@ -12,7 +26,7 @@
 
 			$(function() {
 				$('#Asignaturas').append(
-					$('<tr>').append(
+					$('<tr style="background-color : #0085A1; color : white;">').append(
 				            $('<td>').text('Asignatura'),					            
 				            $('<td>').text('Nota')
 				    
@@ -74,20 +88,211 @@
 
 	</script>
 </head>
+<body class="text-center">
+
+	<!-- Page Header -->
+	<header class="masthead" style="background-image: url('imagenes/imgFondo.jpg')">
+		<div class="overlay"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="site-heading">
+						<h1 >Lista asignaturas Alumno</h1>
+						<span class="subheading">Consulta tus notas y obt&eacute;n tu media</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="container-fluid">
+		
+		<div class="col-lg-8 col-md-10 mx-auto">
+		<div class="post-preview">
+		<img id="avatar" width="180" height="200">
+		<form id="form" action ="/NOB_Project/listaAlumServlet" method= "get">
+			<table class="table table-bordered table-condensed tablaAlum" id="Asignaturas"></table>
+		</form>
+		<a href="/NOB_Project/loginAl.html"><input type="button" class="btn2 btn-lg btn-primary btn-as" value="Atras"></a>
+		<button class="btn2 btn-lg btn-primary btn-as" id="notaMedia" onclick="generarMedia()">Calcular Media</button> 
+		
+		
+		<form id="logOut" action ="/NOB_Project/logOutServlet" method= "get">
+			<button type="submit" value="LogOut">Cerrar Sesi&oacute;n</button>
+		</form>
+			</div>
+		</div>
+	
+	</div>
+	
+	<footer>
+	<hr>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<p class="copyright text-muted">Trabajo en grupo realizado para
+						la asignatura Desarrollo Web. Curso 2019-2020</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Custom scripts for this template -->
+	<script src="js/clean-blog.js"></script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Asignaturas Alumno</title>
+	<link href="css/bootstrap.css" rel="stylesheet">
+  
+ 
+	<link href="plantilla/css/all.css" rel="stylesheet" type="text/css">
+ 	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  
+  	<link href="plantilla/clean-blog.css" rel="stylesheet">
+	<link href="signin.css" rel="stylesheet">
+	
+	
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script>
+	function onInicio(){
+		$.get("/NOB_Project/listaAsigAlumno",function(data){			
+			
+			response = $.parseJSON(data);
+
+			$(function() {
+				$('#Asignaturas').append(
+					$('<tr style="background-color : #0085A1; color : white;">').append(
+				            $('<td>').text('Asignatura'),					            
+				            $('<td>').text('Nota')
+				    
+				    )		
+				);				
+			    $.each(response, function(i, item) {
+			        $('#Asignaturas').append(			        		
+		        		$('<tr id='+item.acronimo+'>').append(
+					            $('<td>').text(item.asignatura),
+					            $('<td name="nota">').text(item.nota)
+					    )
+			        );
+			    });
+			});
+		});
+		
+	}
+	function getImagenes(){
+		console.log("Llego a entrar");
+		$.get("/NOB_Project/ImagenServlet",function(data){
+			response = $.parseJSON(data);
+			console.log("me llega esto" + response);
+
+			$("#avatar").attr("src", "data:image/png;base64," + response.img);
+		});
+		
+	}
+	
+	
+	function generarMedia(){
+		
+		var notaTotal = 0;
+		var cont = 0;
+		var notaMed = 0;
+		
+		$('td[name ="nota"]').each(function(i){
+			 //si es nulo sumo 0, no tiene nota en esa asignatura.
+			if($(this).html() == "" || $(this).html() == null){
+				notaTotal += 0;
+				cont++;
+			} else{
+				notaTotal += parseFloat($(this).html());
+				cont++;		
+			}
+		})
+		
+		if(notaTotal <= 0) {
+			alert("Tu nota media es:" + notaMed);
+		} else {
+			notaMed = notaTotal / cont;
+			alert("Tu nota media es:" + notaMed);
+		}
+
+	}
+	
+	
+	$('document').ready(onInicio());
+	$('document').ready(getImagenes());
+
+	</script>
+</head>
+<<<<<<< HEAD
+<body class="text-center">
+
+	<header class="masthead" style="background-image: url('imagenes/Alumnos.jpg')">
+		<div class="overlay"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="site-heading">
+						<h1 >Asignaturas del Alumno</h1>
+						<span class="subheading">Estas son todas las asignaturas del alumno</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	
+  	<div class="container">
+  		 <div class="row">
+     		 <div class="col-lg-4 col-md-10 mx-auto">
+		<div>
+=======
 <body>
 	<div>
 		<h1>Lista asignaturas Alumno</h1>
 		<img id="avatar" width="180" height="200">
+>>>>>>> branch 'juanvi2' of https://github.com/behashi/WebAppProject
 		<form id="form" action ="/NOB_Project/listaAlumServlet" method= "get">
-			<table id="Asignaturas"></table>
+			<table class="table table-bordered table-condensed" id="Asignaturas"></table>
 		</form>
-		<button id="notaMedia" onclick="generarMedia()">Calcular Media</button> 
-		<!--   <input type= "text"> -->
+		<button class="btn btn-lg btn-primary btn-as" id="notaMedia" onclick="generarMedia()">Calcular Media</button> 
+		
 		
 		<form id="logOut" action ="/NOB_Project/logOutServlet" method= "get">
-			<button type="submit" value="LogOut">Cerrar Sesi&oacuten</button>
+			<button type="submit" value="LogOut">Cerrar Sesi&oacute;n</button>
 		</form>
-
+  	</div>
+  </div>
+  </div>
 	</div>
+	
+
+	 
+	 
+	  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+    	  <p class="copyright text-muted">Trabajo en grupo realizado para la asignatura Desrrollo Web. Curso 2019-2020</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+    	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="js/clean-blog.js"></script>
 </body>
 </html>
+ -->
+

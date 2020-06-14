@@ -38,7 +38,7 @@ public class CambiaNotaServlet extends HttpServlet {
         String nota = request.getParameter("modificar").toString();
         
         try {
-        URL url = new URL ("http://dew-jaipocar-1920.dsic.cloud:9090/CentroEducativo/alumnos/"+dni+"/asignatura/"+acr+"?key="+key.toLowerCase());
+        URL url = new URL ("http://localhost:9090/CentroEducativo/alumnos/"+dni+"/asignatura/"+acr+"?key="+key.toLowerCase());
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("PUT");
 		con.setRequestProperty("Cookie",cookie);

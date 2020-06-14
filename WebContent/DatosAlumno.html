@@ -3,6 +3,19 @@
 	<head>
 		<title>Informaci&oacute;n alumno</title>
 		<meta charset="ISO-8859-1" />
+		<link href="css/bootstrap.css" rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+<link href="plantilla/css/all.css" rel="stylesheet" type="text/css">
+<link
+	href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+
+<!-- Custom styles for this template -->
+<link href="plantilla/clean-blog.css" rel="stylesheet">
 		<script src = "js/jquery.js"></script> 
 		<script>
 		function onInicio(){
@@ -17,7 +30,7 @@
 
 				$(function() {
 					$('#Alumno').append(
-						$('<tr>').append(
+						$('<tr style="background-color : #0085A1; color : white;">').append(
 					            $('<td>').text('Nombre'),					            
 					            $('<td>').text('Apellidos'),
 					            $('<td>').text('dni')      
@@ -56,9 +69,10 @@
 					
 				$(function() {
 					$('#Asignaturas').append(
-						$('<tr>').append(
+						$('<tr style="background-color : #0085A1; color : white;">').append(
 					            $('<td>').text('Asignatura'),	
 					            $('<td>').text('Nota')
+					            
 					               
 					    )		
 					);				
@@ -69,7 +83,7 @@
 						            $('<td>').text(item.asignatura),
 						            $('<td>').text(item.nota),
 						            $('<td>').append(
-                                        $('<button form="form" onclick="cambiarNota()" id="modificar" class="btn2 btn-lg btn-primary btn-block" value="'+item.nota+'" name="modificar">Modificar</button>'))
+                                        $('<button  form="form" onclick="cambiarNota()" id="modificar" class="btn2 btn-lg btn-primary btn-block" value="'+item.nota+'" name="modificar">Modificar</button>'))
 						            
 						    )
 				        );
@@ -105,19 +119,71 @@
 				
 	</script>
 	</head>
-	<body>
-	<h1>Datos Personales Alumno</h1>
-		<div id="insertar">
-			<table id="Alumno"></table>
+
+<body class="text-center">
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('imagenes/imgFondo.jpg')">
+    <div class="overlay"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Datos Personales Alumno</h1>
+            <span class="subheading">Aqu&iacute; puedes modificar la nota del alumno</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+	<div class="container-fluid">
+	<div class="col-lg-8 col-md-10 mx-auto">
+			<div id="insertar">
+			<table id="Alumno" class="table table-bordered table-condensed tablaAlum"></table>
 			<img id="avatar" width="180" height="200">
-			<table id="Asignaturas"></table>
+			<table id="Asignaturas" class="table table-bordered table-condensed tablaAlum"></table>
 			<form id="form" action ="/NOB_Project/CambiaNotaServlet" method= "get">
 			</form>
-		</div>
-		
-		<form id="logOut" action ="/NOB_Project/logOutServlet" method= "get">
-			<button type="submit" value="LogOut">Cerrar Sesi&oacuten</button>
+	  	<div class="container">
+  		<div class="row" style=" justify-content : center">
+  		<a href="/NOB_Project/Alumnos.html"><input type="button" class="btn2 btn-lg btn-primary btn-as" value="Atras"></a>
+	</div>
+			<form class="sp" id="logOut" action ="/NOB_Project/logOutServlet" method= "get">
+			<button type="submit" class="btn2 btn-lg btn-logout btn-as" value="LogOut">Cerrar Sesi&oacute;n</button>
 		</form>
 		
+			</div>
+		</div>
+		</div>
+
+
+    </div>
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+			<footer>
+	<hr>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<p class="copyright text-muted">Trabajo en grupo realizado para
+						la asignatura Desarrollo Web. Curso 2019-2020</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+		    
+		    
+		    	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="js/clean-blog.js"></script>
 	</body>
 </html>
