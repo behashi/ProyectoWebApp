@@ -290,7 +290,12 @@ button,
 #notaMedia {							/*margen del boton de nota media */
 	
     margin-bottom: 120px;
-    margin-top: 50px;}
+    margin-top: 50px;
+}
+
+.mover {
+	margin-bottom: 50px;
+	
 }
 
 button:not(:disabled),
