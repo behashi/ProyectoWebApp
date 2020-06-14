@@ -79,7 +79,7 @@
 
 	}
 	
-	$('document').ready(onInicio(function(){
+/*	$('document').ready(onInicio(function(){
 	    //miramos si tiene '#' la url
 	    if(document.URL.indexOf("#")==-1){
 	        // si no se ha cargado aún añadimos "#"
@@ -89,12 +89,12 @@
 	        //recargamos para que tenga los datos si o si ?? 
 	        location.reload(true);
 	    }
-	}))
+	}))*/
 
 	</script>
 </head>
 
-<body class="text-center">
+<body class="text-center" onload="onInicio()">
 <!-- Page Header -->
   <header class="masthead" style="background-image: url('imagenes/Profesor.jpg')">
     <div class="overlay"></div>
