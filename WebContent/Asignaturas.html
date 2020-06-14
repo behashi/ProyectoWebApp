@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>Lista de Asignaturas</title>
+	
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+  
+  <!-- Custom fonts for this template -->
+	<link href="plantilla/css/all.css" rel="stylesheet" type="text/css">
+ 	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  	<link href="plantilla/clean-blog.css" rel="stylesheet">
+	<link href="signin.css" rel="stylesheet">
+	
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script>
 	function onInicio(){
@@ -12,7 +28,7 @@
 
 			$(function() {
 				$('#Asignaturas').append(
-					$('<tr>').append(
+					$('<tr style="background-color : #0085A1; color : white;">').append(
 				            $('<td>').text('Acronimo'),					            
 				            $('<td>').text('Nombre'),
 				            $('<td>').text('Curso'),
@@ -24,7 +40,7 @@
 			        $('#Asignaturas').append(			        		
 		        		$('<tr id='+item.acronimo+'>').append(
 					            $('<td>').append(					            		
-					            		$('<button id='+item.acronimo+' onclick="cambiar()" value='+item.acronimo+' name="boton">'+item.acronimo+'</button>')),				            
+					            		$('<button class="btn2 btn-lg btn-asig" style="padding-top: 5px; padding-bottom: 5px; padding-right: 10px;padding-left: 10px;" id='+item.acronimo+' onclick="cambiar()" value='+item.acronimo+' name="boton">'+item.acronimo+'</button>')),				            
 					            $('<td>').text(item.nombre),
 					            $('<td>').text(item.curso),
 					            $('<td>').text(item.cuatrimestre),
@@ -74,17 +90,58 @@
 
 	</script>
 </head>
-<body>
-	<div>
-		<h1>Lista asignaturas</h1>
+
+
+
+<body class="text-center">
+
+	<!-- Page Header -->
+  <header class="masthead" style="background-image: url('imagenes/Profesor.jpg')">
+    <div class="overlay"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Lista de Asignaturas</h1>
+            <span class="subheading">Estas son todas las asignaturas del profesor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="row" style="justify-content: center">
+      <!--  <div class="col-lg-4 col-md-10 mx-auto">
+  		<img class="mb-4" src="imagenes/logoNOL.jpg" alt="" width="100" height="72">
+  		<div> -->
 		<form id="form" action ="/NOB_Project/listaAlumServlet" method= "get">
-			<table id="Asignaturas"></table>
+			<table class="table table-bordered table-condensed" id="Asignaturas"></table>
 		</form>
-		
-		
-		<form id="logOut" action ="/NOB_Project/logOutServlet" method= "get">
-			<button type="submit" value="LogOut">Cerrar Sesi&oacuten</button>
-		</form>
+
 	</div>
+  	  </div>
+  
+  	<div class="container">
+  	<div class="row" style=" justify-content : center">
+  		<a href="/NOB_Project/login.html"><input type="button" class="btn2 btn-lg btn-primary btn-as" value="Atras"></a>
+	</div>
+    </div>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+    	  <p class="copyright text-muted">Trabajo en grupo realizado para la asignatura Desarrollo Web. Curso 2019-2020</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+    	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Custom scripts for this template -->
+	<script src="js/clean-blog.js"></script>
 </body>
 </html>

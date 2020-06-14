@@ -118,9 +118,29 @@ dt {
   font-weight: 700;
 }
 
+.btn-cambioNota{										/*Cambia el color del boton de modificar nota*/
+	background-color : #0085A1 ;
+	border-color: #0085A1;
+	color: white;
+}
+
+.tablaAlum{
+	width : 50% !important; 
+	margin-top: 50 !important;
+	margin: 0 auto;
+    text-align : left;
+	text-align : center;
+	padding-left : 400 !important;
+	}
+
 dd {
   margin-bottom: .5rem;
   margin-left: 0;
+}
+
+#avatar {
+  margin-bottom: 50px;
+
 }
 
 blockquote {
@@ -265,6 +285,12 @@ button,
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
+}
+
+#notaMedia {							/*margen del boton de nota media */
+	
+    margin-bottom: 120px;
+    margin-top: 50px;}
 }
 
 button:not(:disabled),
