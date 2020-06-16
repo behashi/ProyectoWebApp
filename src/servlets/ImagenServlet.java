@@ -62,7 +62,8 @@ public class ImagenServlet extends HttpServlet {
 	
 	
 		HttpSession sesion = request.getSession(false);
-		String dni = sesion.getAttribute("dniAl").toString();
+		String dni = request.getParameter("AlumnoDni").toString();
+		sesion.setAttribute("dniAl",dni);
 		String carpeta = getServletContext().getRealPath("imagenes");
 		
 		response.setContentType("text/plain");

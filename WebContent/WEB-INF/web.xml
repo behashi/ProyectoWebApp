@@ -149,4 +149,34 @@
     <servlet-name>ImagenServlet</servlet-name>
     <url-pattern>/ImagenServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TodosAlumnosServlet</display-name>
+    <servlet-name>TodosAlumnosServlet</servlet-name>
+    <servlet-class>servlets.TodosAlumnosServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TodosAlumnosServlet</servlet-name>
+    <url-pattern>/TodosAlumnosServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ObtenerDniAlumno</display-name>
+    <servlet-name>ObtenerDniAlumno</servlet-name>
+    <servlet-class>servlets.ObtenerDniAlumno</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ObtenerDniAlumno</servlet-name>
+    <url-pattern>/ObtenerDniAlumno</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ModificarDniAl</display-name>
+    <servlet-name>ModificarDniAl</servlet-name>
+    <servlet-class>servlets.ModificarDniAl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModificarDniAl</servlet-name>
+    <url-pattern>/ModificarDniAl</url-pattern>
+  </servlet-mapping>
 </web-app>

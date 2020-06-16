@@ -19,7 +19,7 @@
 	<script src = "js/jquery.js"></script> 
 		
 	<script>
-		var lista = [];
+		/*var lista = [];
 		var acr = "";
 		function onInicio(){
 			setTimeout(function(){
@@ -91,7 +91,7 @@
 				$('#sig').prop('disabled',true);
 				$('#fin').prop('disabled',true);
 			}
-		}*/
+		}
 		//Funcion creada para recuperar la lista de alumnos de la asignatura
 		function listaAlumnos(){
 			$.get("/NOB_Project/AlumnoServlet",function(data){
@@ -111,22 +111,19 @@
 
 				$("#avatar").attr("src", "data:image/png;base64," + response3.img);
 			});
-			
 		}
 		
 		function asigAl(){
-			$.get("/NOB_Project/listaAsigAlumno",function(data){			
+			$.get("/NOB_Project/listaAsigAlumno",function(data){		
 				
 				response4 = $.parseJSON(data);
-					
 				$(function() {
 					$('#Asignaturas').append(
 						$('<tr style="background-color : #0085A1; color : white;">').append(
-					            $('<td>').text('Asignatura'),	
+					            $('<td>').text('Asignatura'),
 					            $('<td>').text('Nota')
-					               
-					    )		
-					);				
+					    )
+					);
 				    $.each(response4, function(i, item) {
 				    	if(item.asignatura == acr){
 				        $('#Asignaturas').append(			        		
@@ -162,7 +159,192 @@
 	        	$('#form').submit();
 			}
 	     }    
+		*/
+		
+		//información del alumno e información
+		
+		var acr = "";
+		var dni  = "";
+		var alumnos = null;
+		function onInicio(){
+			cargarAlumnos();
+			cargarAcronimo();
+			cargarDni();
+			getImagenes();
+		}
+		
+		function cargarAcronimo(){
+			$.get("/NOB_Project/ObtenerAcrProfesor",function(data){				
+				acr =data;
+			});		
+		}
+		
+		function cargarDni(){
+			$.get("/NOB_Project/ObtenerDniAlumno",function(data){				
+				dni =data;
+			});		
+		}
+		
+		function mover(j){
+			var index;
+			var b = 0;
+			while(dni!=alumnos[b].dni){				
+				b++;					
+			}
+			if(dni==alumnos[b].dni){
+				if(j.id=='ini'){
+					dni = alumnos[0].dni;
+					capar(0);
+				}else if(j.id=='ant'){
+					dni = alumnos[b-1].dni;
+					if(b == 0){
+						capar(0);
+					}else{
+						capar(2);
+					}
+				}else if(j.id=='sig'){
+					dni = alumnos[b+1].dni;
+					if(b == alumnos.length-1){
+						capar(1);
+					}else{
+						capar(2);
+					}
+				}else if(j.id=='fin'){
+					dni = alumnos[alumnos.length-1].dni;
+					capar(1);
+				}		
+			}
+			modificarHtml();
+		}
+		
+		function capar(i){
+			if(i==1){
+				$('#sig').prop('disabled',true);
+				$('#fin').prop('disabled',true);
+				$('#ant').prop('disabled',false);
+				$('#ini').prop('disabled',false);
+			}else if(i==0){
+				$('#ant').prop('disabled',true);
+				$('#ini').prop('disabled',true);
+				$('#sig').prop('disabled',false);
+				$('#fin').prop('disabled',false);
+			}else{
+				$('#ant').prop('disabled',false);
+				$('#ini').prop('disabled',false);
+				$('#sig').prop('disabled',false);
+				$('#fin').prop('disabled',false);
+			}
+		}
+		
+		
+		function modificarHtml(){
+			$('#Alumno').html("");
+			$('#Asignaturas').html("");
+			
+			$.each(alumnos,function(i,item){
+				if(item.dni == dni){
+				$('#AlumnoDni').prop('value',dni);
+				$('#Alumno').append(
+						$('<tr style="background-color : #0085A1; color : white;">').append(
+					            $('<td>').text('Apellidos'),
+					            $('<td>').text('Nombre'),
+					            $('<td>').text('dni')
+					    )
+					);
+				$('#Alumno').append(
+			        		$('<tr id='+item.dni+' name="alumno" value='+res.dni+'>').append(
+						            $('<td>').text(item.apellidos),
+						            $('<td>').text(item.nombre),
+						            $('<td>').text(item.dni)
+						    )
+				    );
+				$('#Asignaturas').append(
+						$('<tr style="background-color : #0085A1; color : white;">').append(
+					            $('<td>').text('Asignatura'),
+					            $('<td>').text('Nota')
+					    )
+				);
+		        $('#Asignaturas').append(
+		        		$('<tr id="'+ acr + '">').append(
+					            $('<td>').text(acr),
+					            $('<td>').text(item.nota),
+					            $('<td>').append(
+	                                $('<button form="form" onclick="cambiarNota()" id="modificar" class="btn2 btn-lg btn-primary btn-block" value="'+item.nota+'" name="modificar">Modificar</button>'))
+					    )
+			   	);
+		       	}
+		   })		   
+		   $('#AlumnoDni').prop('type','input');
+		   getImagenes();
+		  	$('#AlumnoDni').prop('type','hidden');
+		   
+		}
+		
+		function cambiarNota(){
+			var mensaje;
+	        var nota = prompt("Introduzca la nueva Nota:",);
 
+	        if (nota == null || nota == "" || nota < 0 || nota > 10 || isNaN(nota)) {
+	                alert("El valor no ha sido introducido o no es v&aacutelido");
+	                }
+	        else {
+	        	$('#modificar').prop('value',nota);
+	        	$('#form').submit();
+			}
+	     }  
+		
+		function getImagenes(){
+			console.log("Llego a entrar");
+			$.get("/NOB_Project/ImagenServlet",function(data){
+				response3 = $.parseJSON(data);
+				console.log("me llega esto" + response3);
+
+				$("#avatar").attr("src", "data:image/png;base64," + response3.img);
+			});
+		}
+		
+		function cargarAlumnos(){
+			$.get("/NOB_Project/TodosAlumnosServlet",function(data){
+				res = $.parseJSON(data);
+				alumnos = res;
+				console.log(res);
+				 $.each(res, function(i, item) {
+					 if(item.dni==dni){
+						$('#AlumnoDni').prop('value',dni);
+					 	$('#Alumno').append(
+								$('<tr style="background-color : #0085A1; color : white;">').append(
+							            $('<td>').text('Apellidos'),
+							            $('<td>').text('Nombre'),
+							            $('<td>').text('dni')
+							    )
+							);
+						$('#Alumno').append(
+					        		$('<tr id='+item.dni+' name="alumno" value='+res.dni+'>').append(
+								            $('<td>').text(item.apellidos),
+								            $('<td>').text(item.nombre),
+								            $('<td>').text(item.dni)
+								    )
+						    );
+						$('#Asignaturas').append(
+								$('<tr style="background-color : #0085A1; color : white;">').append(
+							            $('<td>').text('Asignatura'),
+							            $('<td>').text('Nota')
+							    )
+						);
+				        $('#Asignaturas').append(		        		
+				        		$('<tr id="'+ acr + '">').append(
+							            $('<td>').text(acr),
+							            $('<td>').text(item.nota),
+							            $('<td>').append(
+		                                    $('<button form="form" onclick="cambiarNota()" id="modificar" class="btn2 btn-lg btn-primary btn-block" value="'+item.nota+'" name="modificar">Modificar</button>'))
+							            
+							    )
+					   	);}
+				 });
+			})
+		}
+		
+		
 		$(document).ready(onInicio());
 				
 	</script>
@@ -190,14 +372,16 @@
 	<div class="container-fluid">
 	<div class="col-lg-8 col-md-10 mx-auto">
 			<div id="insertar">
+			<form id="form" action ="/NOB_Project/CambiaNotaServlet" method= "get">
 			<table id="Alumno" class="table table-bordered table-condensed tablaAlum"></table>
 			<img id="avatar" width="180" height="200">
 			<table id="Asignaturas" class="table table-bordered table-condensed tablaAlum"></table>
-			<form id="form" action ="/NOB_Project/CambiaNotaServlet" method= "get">
+			<input id="AlumnoDni" name="AlumnoDni" type="hidden" value=""></input>
 			</form>
 	  	<div class="container">
 
 		<div class="mover">
+		
 	    <button form="form2" id="ini" onclick="mover(ini)" name="seleccion" class="btn2 btn-lg btn-primary btn-as">&lt;&lt;</button>
         <button form="form2" id="ant" onclick="mover(ant)" name="seleccion" class="btn2 btn-lg btn-primary btn-as">&lt;</button>
         <button form="form2" id="sig" onclick="mover(sig)" name="seleccion" class="btn2 btn-lg btn-primary btn-as">&gt;</button>
@@ -217,18 +401,9 @@
 
 
     </div>
-
-
-		
-		
-		
-		
-		
-		
-		
-		
-			<footer>
-	<hr>
+    <!-- ------ -->
+	<footer>
+		<hr>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-md-10 mx-auto">

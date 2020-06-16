@@ -27,8 +27,11 @@ public class ObtenerAcrProfesor extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession(false);  
-		String acr = session.getAttribute("acr").toString();
+		HttpSession session=request.getSession(false);
+		
+		String acr = session.getAttribute("acr").toString();		
+		
+		response.setContentType("text/html");
 		response.getWriter().write(acr);
 	}
 
