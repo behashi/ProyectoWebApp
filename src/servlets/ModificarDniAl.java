@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class ObtenerAcrProfesor
+ * Servlet implementation class ModificarDniAl
  */
-public class ObtenerAcrProfesor extends HttpServlet {
+public class ModificarDniAl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ObtenerAcrProfesor() {
+    public ModificarDniAl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,13 +27,14 @@ public class ObtenerAcrProfesor extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		HttpSession session=request.getSession(false);
+		String dni = request.getParameter("Alumno").toString();
 		
-		String acr = session.getAttribute("acr").toString();		
-		
-		response.setContentType("text/html");
-		response.getWriter().write(acr);
-	}
+		session.setAttribute("dniAl",dni);
+		RequestDispatcher rd = request.getRequestDispatcher("/DatosAlumno.html");
+	    rd.forward(request, response);
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

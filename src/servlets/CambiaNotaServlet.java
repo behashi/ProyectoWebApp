@@ -31,7 +31,9 @@ public class CambiaNotaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sesion = request.getSession(false);
-		String dni = sesion.getAttribute("dniAl").toString();
+		
+		String dni = request.getParameter("AlumnoDni").toString();
+		sesion.setAttribute("dniAl", dni);
 		key = sesion.getAttribute("key").toString();
         cookie = sesion.getAttribute("cookie").toString();
         String acr = sesion.getAttribute("acr").toString();
